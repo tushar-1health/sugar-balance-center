@@ -1,0 +1,337 @@
+<ion-view cache-view="false" class="category-list-view" >
+    <ion-nav-title>
+       <span  ng-if="apkLanguage == 'english'">Packages</span>
+        <span  ng-if="apkLanguage != 'english'">{{langtext.package[language]}}</span>
+    </ion-nav-title>
+
+    <ion-content>
+        <div class="row tabnav" ng-if="apkLanguage == 'english'">
+            <div class="col"><a nav-clear menu-close ui-sref="app.packaging" >Book</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.active-packages" >Active</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.past-packages" class="active">Past</a></div>
+        </div>
+        <div class="row tabnav" ng-if="apkLanguage != 'english'">
+            <div class="col"><a nav-clear menu-close ui-sref="app.packaging" >{{langtext.book[language]}}</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.active-packages"  >{{langtext.active[language]}}</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.past-packages" class="active" >{{langtext.past[language]}}</a></div>
+        </div>
+        <!--        <div class="list list-inset">
+                    <label class="item item-input">
+                        <i class="icon ion-search placeholder-icon"></i>
+                        <input type="text" placeholder="Search Patient" ng-model="search">
+                    </label>
+                </div>-->
+        <div class="posts-list">
+            <!--            <div class="list card post-item" ng-repeat="pack in packages">
+                            <div class="post-content item item-text-wrap p0">
+                                <a ui-sref="app.packages-view({'id': pack.packages.id})" class="card-content p0">
+                                    <div class="item item-divider">{{pack.packages.name}}
+                                        <div class="cardprice">INR {{pack.order.order_amt}}</div>
+                                    </div>
+            
+                                    <div class="cardcont">
+                                        <p><strong>Duration : </strong>
+                                            <span ng-if="pack.packages.validity_in_days != 0">{{pack.packages.validity_in_days}} Days</span>
+                                            <span ng-if="pack.packages.validity_in_days == 0">NA</span> (15 Days Elapsed)</p>
+                                        <p><strong>Description : </strong>
+                                            {{pack.order.product_metadata}}</p>
+                                    </div>
+                                    <div class="item item-divider">Consultations</div>
+                                    <div class="flexcont btnpd">
+                                        <div class="innerdiv brdright" ng-if="pack.packages.video_limit != 0">
+                                            Video <span class="countconsult" ng-if="pack.packages.video_limit != '-1'">{{pack.packages.video_limit}}/1used Count</span>
+                                            <span class="countconsult" ng-if="pack.packages.video_limit == '-1'">Unlimited</span>
+                                        </div>
+                                        <div class="innerdiv brdright" ng-if="pack.packages.clinic_limit != 0">
+                                            Clinic <span class="countconsult" ng-if="pack.packages.clinic_limit != '-1'">{{pack.packages.clinic_limit}}/1used Count</span>
+                                            <span class="countconsult" ng-if="pack.packages.clinic_limit == '-1'">Unlimited</span>
+                                        </div>
+                                        <div class="innerdiv brdright" ng-if="pack.packages.home_limit != 0">
+                                            Home <span class="countconsult" ng-if="pack.packages.home_limit != '-1'">{{pack.packages.home_limit}}/1used Count</span>
+                                            <span class="countconsult" ng-if="pack.packages.home_limit == '-1'">Unlimited</span>
+                                        </div>
+                                        <div class="innerdiv" ng-if="pack.packages.chat_limit != 0">
+                                            Chat  <span class="countconsult" ng-if="pack.packages.chat_limit != '-1'">{{pack.packages.chat_limit}}/1used CountDays</span>
+                                            <span class="countconsult" ng-if="pack.packages.chat_limit == '-1'">Unlimited</span>
+                                        </div>
+                                    </div>
+                                    <div class="cardcont">
+                                        <div class="row p0">
+                                            <div class="col col-33"><strong>Specialist</strong></div>
+                                            <div class="col col-67"> 
+                                                <ul>
+                                                    <div class="col col-67" ng-if="pack.packages.doctor_restriction == 1"> 
+                                                        <ul>
+                                                            <li ng-repeat="spec in pack.specialist">{{spec.fname}} {{spec.lname}} </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col col-67" ng-if="pack.packages.doctor_restriction != 1"> 
+                                                        Any
+                                                    </div>
+                                                </ul>
+                                                <div class="innerdiv">
+                                                    {{pack.packages.restricted_to == 1 ? 'Specialist(s)' : pack.packages.restricted_to == 2 ? 'Category' : 'Any'}}  
+                                                    <span class="countconsult" >{{pack.packages.restricted_to == 1? pack.specialist.length:pack.packages.restricted_to == 2? pack.categories.length: 'Any'}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+            
+                            </div>
+            
+                        </div>-->
+            <div class="list card post-item newcard" ng-repeat="pack in packages" style="margin-bottom: 60px;">
+                <div class="post-content item item-text-wrap p0">
+                    <div ui-sref="#" class="card-content p0">
+                        <div class="item item-divider grndivider">{{pack.packages.name}}
+                            <div class="cardprice">INR {{pack.packages.interfacePrice|ceil}}</div>
+                        </div>
+                    </div>
+                    <div class="cardcont">
+
+                        <p ><strong>Description : </strong>
+                            <span class="fitalic">{{pack.packages.desc}}</span>                            
+                        </p>
+                    </div>
+                    <div class="item item-divider">Inclusions</div>
+                    <div class="flexcont btnpd">
+                        <div class="innerdiv brdright" ng-if="pack.packages.video_limit != 0">
+                            <i class="ion-ios-videocam"></i>  Video <span class="countconsult" ng-if="pack.packages.video_limit != '-1'"> {{pack.used_video}} / {{pack.packages.video_limit}}</span>
+                            <span class="countconsult" ng-if="pack.packages.video_limit == '-1'">Unlimited</span>
+                        </div>
+                        <div class="innerdiv brdright" ng-if="pack.packages.clinic_limit != 0">
+                            <i class="ion-medkit"></i> Clinic <span class="countconsult" ng-if="pack.packages.clinic_limit != '-1'"> {{pack.used_clinic}} / {{pack.packages.clinic_limit}}</span>
+                            <span class="countconsult" ng-if="pack.packages.clinic_limit == '-1'">Unlimited</span>
+                        </div>
+                        <div class="innerdiv brdright" ng-if="pack.packages.home_limit != 0">
+                            <i class="ion-home"></i>  Home <span class="countconsult" ng-if="pack.packages.home_limit != '-1'"> {{pack.used_home}} / {{pack.packages.home_limit}} </span>
+                            <span class="countconsult" ng-if="pack.packages.home_limit == '-1'">Unlimited</span>
+                        </div>
+                        <div class="innerdiv" ng-if="pack.packages.chat_limit != 0">
+                            <i class="ion-chatboxes"></i>  Chat  <span class="countconsult" ng-if="pack.packages.chat_limit != '-1'">{{pack.used_chat>pack.packages.chat_limit? 'Expired': pack.used_chat}} / {{pack.packages.chat_limit}} Days</span>
+                            <span class="countconsult" ng-if="pack.packages.chat_limit == '-1'">{{pack.used_chat}} / Unlimited</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="item item-divider">Validity
+                        <div class="rtbtn" ng-controller="alldoctrsCtrl" ng-click="showDrs($index);" ng-if="pack.packages.restricted_to == 1 || pack.packages.restricted_to == 2">View Details</div>
+                        <div class="rtbtn" ng-controller="anydoctrsCtrl" ng-click="showDrs($index);" ng-if="pack.packages.restricted_to == 0">View Details</div>
+
+                    </div>
+                    <div class="flexcont btnpd">
+                        <div class="innerdiv brdright">
+                            Duration 
+                            <span class="countconsult">
+                                <span ng-if="pack.packages.validity_in_days != 0">{{pack.packages.validity_in_days}} Days</span>
+                                <span ng-if="pack.packages.validity_in_days == 0">NA</span> ({{pack.elapsed_days}} Days Elapsed)</p>
+
+                            </span>
+                        </div>
+                        <div class="innerdiv">
+                            {{pack.packages.restricted_to == 1 ? 'Specialist(s)' : pack.packages.restricted_to == 2 ? 'Category' : 'Any'}}  
+                            <span class="countconsult" >{{pack.packages.restricted_to == 1? pack.specialist.length:pack.packages.restricted_to == 2? pack.categories.length: 'Any'}}</span>
+                        </div>
+                    </div>
+                    <div class="flexcont btnpd">
+                        <div class="innerdiv f13 txt-left">
+                            Recommended <br/>
+                            <span class="fitalic">Lorem ipsum</span>
+                        </div>
+                        <div class="innerdiv txt-right">
+                            <a class="crdbtn btn-add txt-center" ui-sref="app.packages-view({'id': pack.packages.id, 'ord': pack.order.id})">View</a>
+                        </div>
+                    </div>
+                    <!--  <div class="cardcont">
+                             <div class="row p0" ng-if="pack.packages.restricted_to == 1">
+                                 <div class="col col-33"><strong>Specialist</strong></div>
+                                 <div class="col col-67" > 
+                                     <ul>
+                                         <li ng-repeat="spec in pack.specialist" ng-controller="infodoctrsCtrl" ng-click="showDr(spec.id);">{{spec.fname}} {{spec.lname}} </li>
+                                     </ul>
+                                 </div>
+                             </div>
+                             <div class="row p0" ng-if="pack.packages.restricted_to == 2">
+                                 <div class="col col-33"><strong>Category</strong></div>
+                                 <div class="col col-67" > 
+                                     <ul>
+                                         <li ng-repeat="spec in pack.categories" ng-controller="doctrsInfoCtrl" ng-click="showDrs(spec.id);" >{{spec.specialization}}</li>
+                                     </ul>
+                                 </div>
+                             </div>
+                             <div class="row p0" ng-if="pack.packages.restricted_to == 0">
+                                 <div class="col col-33"><strong>Category & Specialist</strong></div>
+                                 <div class="col col-67" > 
+                                     Any
+                                 </div>
+                             </div>
+                         </div> -->
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <div class="fixedbar">
+        <!-- <div class="button btn-share" nav-clear ng-click="modal.hide()" ><i class="icon ion-funnel"></i> Filter</div>
+         <div class="button btn-delete" ng-click="submitmodal()"><i class="icon ion-ion-refresh"></i> Sort</div>-->
+    </div>
+</ion-view>
+
+
+<script id="pkg-details" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title">Package Description</h1>
+    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+    <div class="cardcont txt-justify">
+    <p>{{pack.package.desc}} </p>    
+    </div>
+    </ion-content>
+    </ion-modal-view>
+</script>
+
+<script id="pkg-terms" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title">Terms & Conditions</h1>
+    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+    <div class="cardcont txt-justify">
+    <p>{{pack.package.terms_and_conditions}}</p>
+    </div>
+    </ion-content>
+    </ion-modal-view>
+</script>
+
+<script id="infodoctrs" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title">Doctor Info</h1>
+    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+    <div class="list card post-item">
+    <div class="post-content item item-text-wrap">
+    <a ui-sref="#" >
+    <div class="card-left">	
+    <img class="user-image-circle" ng-if="doc.image != ''" ng-src="{{imgpath}}{{doc.image}}">
+    <img class="user-image-circle" ng-if="doc.image == ''" ng-src="img/default-user.jpg">
+    </div>
+    <div class="card-detail txt-left">
+    <p><strong>{{doc.fname}} {{doc.lname}}</strong><br>
+    <span ng-repeat="spec in doc.specializations">
+    {{doc.specializations[0][language]}}{{$last==true? '': ',&nbsp;'}} 
+    </span>
+    </p>
+    </div>
+    <div class="row txt-left">
+    <div class="col"><p><strong>Experience</strong><br>{{doc.exp}}</p></div>	
+    <div class="col"><p><strong>Qualification</strong><br>
+    <span ng-repeat="qual in doc.qualifications">{{qual.qualification}}{{$last==true? '': ',&nbsp;'}}</span>
+    </p></div>	
+    </div>
+    <div class="row txt-left">
+    <div class="col">
+    <p><strong>Languages</strong><br>
+    <span ng-repeat="lang in doc.languages">
+    {{lang.language}}{{$last==true? '': ',&nbsp;'}}
+    </span>
+    </p></div>	
+    <div class="col">
+    <p><strong>Focus Area</strong><br>
+    <span ng-repeat="focus in doc.focuses">
+    {{focus.focus}}{{$last==true? '': ',&nbsp;'}}
+    </span>
+    </p></div>	
+    </div>
+    <div class="clr"></div>
+    </a>
+    </div>
+    </div>
+    </ion-content>
+    </ion-modal-view>
+</script>
+
+<script id="catdoctrs" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title">Details</h1>
+    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+    <my-tabs class="themetabs">
+    <my-tab title="Doctors">
+    <div class="list consultview">
+    <div class="posts-list" ng-repeat="doc in doctrs">
+    <div  class="list card post-item">
+    <div class="post-content item item-text-wrap p0">
+    <a ui-sref="app.consultation-profile({'id' : doc.id, 'res' : 'json'})" class="card-content" >
+    <div class="card-left">	
+    <img class="user-image-circle" ng-if="doc.image != ''" ng-src="{{imgpath}}{{doc.image}}"><img class="user-image-circle" ng-if="doc.image == ''" ng-src="img/default-user.jpg">
+    </div>
+    <div class="card-detail txt-left" >
+    <p><strong>{{doc.user_lang[language]}}</strong><br/>
+    <span ng-repeat="spec in doc.specializations">
+    {{doc.specializations[0][language]}}{{$last==true? '': ',&nbsp;'}} 
+    </span></p>
+    </div>
+    <div class="row txt-left">
+    <div class="col"><p><strong>Experience</strong><br/>{{doc.exp}}</p></div>	
+    <div class="col"><p><strong>Qualification</strong><br/>
+    <span ng-repeat="qual in doc.qualifications">{{qual.qualification}}{{$last==true? '': ',&nbsp;'}}</span></p></div>	
+    </div>
+    <div class="row txt-left">
+    <div class="col"><p><strong>Languages</strong><br/>
+    <span ng-repeat="lang in doc.languages">
+    {{lang.language}}{{$last==true? '': ',&nbsp;'}}
+    </span></p></div>	
+    <div class="col"><p><strong>Focus Area</strong><br/>
+    <span ng-repeat="focus in doc.focuses">
+    {{focus.focus}}{{$last==true? '': ',&nbsp;'}}
+    </span></p></div>	
+    </div>
+    <div class="clr"></div>
+    </a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </my-tab>
+    <my-tab title="Terms & Conditions">
+    <div class="tabcontainer p0" >
+    <p>
+    {{terms}}
+    </p>
+    </div>
+    </my-tab>
+    </my-tabs>
+    </ion-content>
+    </ion-modal-view>
+</script>
+<script id="anydoctrs" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title">Details</h1>
+    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+    <my-tabs class="themetabs">
+    <my-tab title="Valid For">
+    <p><strong> Speciality : </strong> Any</p>
+    <p><strong> Category : </strong> Any </p>
+    </my-tab>
+    <my-tab title="Terms & Conditions">
+    <div class="tabcontainer p0" >
+    <p>
+    {{terms}}
+    </p>
+    </div>
+    </my-tab>
+    </my-tabs>
+    </ion-content>
+    </ion-modal-view>
+</script>

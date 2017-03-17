@@ -1,0 +1,45 @@
+<ion-view class="category-feeds-view">
+    <ion-nav-title>
+        <span>Record</span>
+    </ion-nav-title>
+    <ion-content class="bgwhite">
+        <div class="posts-list" style="padding-bottom:60px;">
+            <div class="post-view  post-content item-text-wrap p10">
+                <h2 class="post-title">{{videoChatdata.created_at| dateFormat6}}</h2>
+                <p class="post-author">
+                    By <span>{{videoChatdata.fname}} {{videoChatdata.lname}}</span> 
+                </p>
+
+                <p class="post-excerpt pb10" dynamic-anchor-fix style="font-style: italic;"> 
+
+                </p>
+
+                <div  class="framecontainer mb10" > 
+                    
+                    <video width="100%" style="min-height:50px;"  src="{{trustSrc(videoChatdata.url)}}" controls preload="metadata" autoplay>
+                     Your browser does not support the video tag.
+                             </video> 
+
+                </div>
+                <p class="post-text">
+                    {{videoChatdata.chat_comment}}
+                </p>
+
+            </div>
+            <br/>
+        </div>
+
+
+    </ion-content>
+
+</ion-view>
+
+
+
+
+
+
+
+
+
+

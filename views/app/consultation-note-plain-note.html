@@ -1,0 +1,43 @@
+<div>
+    <!-- <div class="plainNotesAdd" style="display: none">
+        
+        <label class="item item-input listreq">
+          <textarea ng-model="data.description" type = "text" required placeholder="description" rows="5" cols="50" style="resize: none;">            
+          </textarea>
+        </label>
+        <label class="item item-input listreq">
+            <input type="file" placeholder="{{field.field}}" onchange="angular.element(this).scope().setFile(this)" name="{{field.name}}"/>
+            <label for="attachfile"></label>
+        </label>                                     
+        <button ng-click="savePlainNote()" class="button button-positive button-block">Add</button>
+        <button ng-click="cancelPlainNoteAddPage()" class="button button-add button-block">Cancel</button>
+    </div> -->
+    
+    <div class="PlainNotesView" style="height:510px;">
+        <!-- <div style ="float:left">
+            <a ng-click="sharePlainNotes(plainNoteCards)" class="button btn-share"><i class="icon ion-android-share-alt"/></a>
+        </div>
+        <div style ="float:right">
+            <a ng-click="addPlainNotes()" class="button btn-share"><i class="icon ion-ios-plus-outline"/></a>
+        </div> -->
+        <div class="row" ng-if="plainNoteCards.length == 0">
+            No Plain Notes to Show
+        </div>
+        <div class="row" ng-repeat="card in plainNoteCards">
+            <div class = "col greenbox card">
+                <div  on-transition-out="swipedAway(card.id)" style="text-align:center;">
+                    <h4 class="cardtitle">
+                        <span> Plain Note </span>                    
+                    </h4>
+                    <div class="tdincard">
+                        <p>{{card.description}}</p>
+                        <p>
+                            <img style="max-height: 100px; max-width:200px ;cursor:pointer" src="{{card.attachment.host}}{{card.attachment.attachment_path}}{{card.attachment.orginial_name}}" alt="image loading" ng-click="openPlainNoteModal(card)"/>
+                        </p>
+                    </div>                
+                </div>
+
+            </div>
+        </div>       
+    </div>
+</div>

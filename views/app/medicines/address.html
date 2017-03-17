@@ -1,0 +1,113 @@
+<ion-view cache-view="false" class="category-list-view" >
+  <ion-nav-title>
+    <span>Address</span>
+</ion-nav-title>
+
+
+  
+  <ion-content>
+  <div class="pb40">
+
+	<div class="item item-divider txtcenter">Enter New Address</div> 
+		
+				<div class=" row mt15">
+				<div class="col">
+				   <button class="button bar" ng-click="modal.show()"> <span class="icon ion-plus-circled"></span> Address</button>
+				</div>
+			</div>
+		
+		<p class="txtcenter">OR</p>
+		
+		<div class="item item-divider txtcenter">Select From List</div>
+		
+<div class="posts-list">
+	<div  class="list card post-item mb15">
+		<div class="post-content item item-text-wrap p0">
+			<div  class="">
+				<div class="item item-divider">
+				<strong>Naresh</strong>
+				<div class="flt-right">+91 123456789</div>
+				</div>
+				<div class="p15">
+				<p><strong>Address : </strong> Ipsum is, simply dummy text of the, printing and typesetting industry</p>
+				</div>
+				<div class="cradioselect">
+				<ion-radio ng-model="choiced" ng-value="'A'">Select</ion-radio>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+<div  class="posts-list">
+	<div  class="list card post-item mb15">
+		<div class="post-content item item-text-wrap p0">
+			<div  class="">
+				<div class="item item-divider">
+				<strong>Leena</strong>
+				<div class="flt-right">+91 123456789</div>
+				</div>
+				<div class="p15">
+				<p><strong>Address : </strong> Ipsum is, simply dummy text of the, printing and typesetting industry</p>
+				</div>
+				
+				<div class="cradioselect">
+				<ion-radio ng-model="choice" ng-value="'A'">Select</ion-radio>
+				</div>
+				
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+
+
+
+
+		
+</div>
+  </ion-content>
+  
+      <div class="fixedbar">
+        <a class="button btn-add">Next <i class="icon ion-arrow-right-c"></i> </a>
+     </div>
+  
+</ion-view>
+
+<script id="addnewaddress" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title">New Address</h1>	 
+  <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+	<label class="item item-input item-floating-label">
+    <span class="input-label" >Name</span>
+    <input type="text" placeholder="Name">
+    </label>
+
+    <label class="item item-input item-floating-label">
+    <span class="input-label">Email</span>
+    <input type="email"  placeholder="Email">
+    </label>
+
+    <label class="item item-input item-floating-label">
+    <span class="input-label">Mobile</span>
+    <input type="tel" placeholder="Mobile">
+    </label>
+
+		<label class="item item-input">
+        <textarea  type="text" col="" rows="10" placeholder="Enter Address "></textarea>
+        </label>
+	</ion-content>
+	
+  <div class="fixedbar">
+    <div class="button btn-add" nav-clear ng-click="modal.hide()" ><i class="ion-check"></i> Submit</div>
+    </div>
+    </ion-modal-view>
+</script>

@@ -1,0 +1,33 @@
+<div>
+    <!-- <div style="padding:2px">
+        <div style ="float:left">
+            <a ng-click="shareTreatment(allCats)" class="button btn-share"><i class="icon ion-android-share-alt"/></a>
+        </div>
+    </div>   -->  
+    <div ng-repeat="cat in allCats" ng-if="$index % 3 == 0" class="row" width="99%">
+        <div class="col greenbox card">
+            <a ng-click="gotopage(allCats[$index].url,allCats[$index].category,allCats[$index].name)">
+                <div class="post-heading">
+                    <p class="text-center">{{allCats[$index].name}}</p>
+                    <p class="text-center count">{{allCats[$index].count}} </p>
+                </div>
+            </a>
+        </div>
+        <div class="col greenbox card">
+            <div class="post-heading">
+                <a ng-click="gotopage(allCats[$index + 1].url,allCats[$index + 1].category,allCats[$index + 1].name)">
+                    <p class="text-center">{{allCats[$index + 1].name}}</p>
+                    <p class="text-center count">{{allCats[$index + 1].count}} </p>
+                </a>
+            </div>
+        </div>
+        <div class="col greenbox card">
+            <div class="post-heading">
+                <a ng-click="gotopage(allCats[$index + 2].url,allCats[$index + 2].category,allCats[$index + 2].name)">
+                    <p class="text-center">{{allCats[$index + 2].name}}</p>
+                    <p class="text-center count">{{allCats[$index + 2].count}} </p>
+                </a>
+            </div>
+        </div>      
+    </div>
+</div>

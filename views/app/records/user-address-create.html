@@ -1,0 +1,56 @@
+ <ion-view class="settings-view">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <span>Add Address</span>
+  </ion-nav-title>
+  <ion-content>
+  <div>
+    <form>
+  
+      <div class="item item-divider"><span>Alias: </span></div>
+      <label class="item item-input listreq">
+        <input ng-model="createaddress.alias" type = "text" required/>
+      </label>
+
+      <div class="item item-divider"><span>Address Line 1: </span></div>
+      <label class="item item-input listreq">
+        <input ng-model="createaddress.line1" type = "text" required/>
+      </label>
+
+      <div class="item item-divider"><span>Street Name: </span></div>
+      <label class="item item-input listreq">
+          <input ng-model="createaddress.street" type = "text" required/>
+      </label>
+
+      <div class="item item-divider"><span>Locality: </span></div>
+      <label class="item item-input listreq">
+          <input ng-model="createaddress.locality" type = "text" required/>
+      </label>
+
+      <div class="item item-divider"><span>City: </span></div>
+      <label class="item item-input listreq">
+          <input ng-model="createaddress.city" type = "text" required/>
+      </label>
+
+      <div class="item item-divider"><span>Pin: </span></div>
+      <select ng-model = "createaddress.pin" class="cselect" required>
+          <option ng-repeat="pin in pincodes" value="{{pin.id}}">{{pin.pincode}}</option>
+        </select>
+      </label>
+
+      <div class="item item-divider">Default: </div>
+   
+      <label class="item item-list listreq">
+       <select ng-model = "createaddress.default" class="cselect" required>
+          <option value='0'>No</option>
+          <option value ='1'>Yes</option>
+        </select>
+      </label>
+
+      <button ng-click="submit()" class="button button-positive button-block">Submit</button>
+    </form>
+  </div>
+  </ion-content>
+</ion-view>

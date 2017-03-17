@@ -1,0 +1,55 @@
+<ion-view class="signup-view auth-view" cache-view="false">
+    <ion-content scroll="false">
+        <div class="row">
+            <div class="col col-center">
+                <div class="card sign-up-container">
+                    <form name="signupForm" class="" novalidate id="signup">
+                        <div class="list">
+                              <input type="hidden" value="{{interface}}" ng-model="interface" name="interface">
+                              <input type="hidden" value="{{registervia}}" ng-model="registervia" name="registervia">
+                            <label class="item item-input">
+                                <input type="text"  name="name"  required ng-model="user.name" placeholder="Name" ng-minlength="3" />
+                                <div class="clr"></div>
+                                <div ng-show="signupForm.name.$error.minlength" class="serror">Username is too short.</div>
+                                <div ng-show="signupForm.name.$error.required" class="serror">Your username is required.</div>
+                            </label>
+
+                            <label class="item item-input">
+
+                                <input type="email" name="email" required ng-blur="checkEmail(user.email)" placeholder="Email" ng-model="user.email" />
+
+                                <div ng-show="signupForm.email.$error.required" class="serror">Email is required.</div>
+                                <div ng-show="signupForm.email.$error.email" class="serror">Email is invalid</div>
+                            </label>
+
+                            <label class="item item-input">
+                                <input type="tel" name="phone" required ng-model="user.phone" ng-blur="checkPhone(user.phone)"  placeholder="Mobile" ng-minlength="10">
+                                <div ng-show="signupForm.phone.$error.minlength" class="serror">Username is too short.</div>
+                            </label>
+
+                            <label class="item item-input">
+                                <input type="password" name="password" required ng-model="user.password" placeholder="Password" ng-minlength="6" />
+                                <div ng-show="signupForm.password.$error.minlength" class="serror">Password is too short.</div>
+                            </label>
+
+                        </div>
+                        <div class="text-center">
+                            <p ng-model='emailError' ng-bind-html="emailError"></p> 
+                            <p ng-model='phoneError' ng-bind-html="phoneError"></p>
+                        </div>
+                        <div class="item item-body bottom-content">
+                            <button type="submit" class="button button-assertive button-block" ng-click="doSignUp()" ng-disabled="signupForm.$invalid">
+                                Sign Up
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="alternative-actions">
+                    <a class="log-in button button-small button-clear button-light" ui-sref="auth.login">
+                        Log In
+                    </a>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

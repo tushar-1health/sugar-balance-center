@@ -1,0 +1,144 @@
+<ion-view class="rjoin-view">
+    <ion-nav-title>
+        <span>{{user[0].fname}} {{user[0].lname}}</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear" ng-click="exitVideo()"> Exit</button>
+
+    </ion-nav-buttons>
+    <div class="bar bar-subheader cbar">
+        <div class="row">
+            <div class="col txt-centre"><h5><a  ui-sref="#">Appointment at {{app[0].appointments.scheduled_start_time|time1}} </a></h5></div>
+        </div>
+    </div>
+    <ion-content>
+        <div class="fltr-mesg"> &nbsp;</div>
+        <div class="mediascreen h85vh" >
+            <div id='myPublisherDiv' style="position:absolute;right: 10px;bottom:10px; text-align:center;">
+                Your video will show here
+            </div> 
+            <div id='subscribersDiv' class="subscribediv">Waiting for doctor to join!</div> 
+        </div>
+
+        <div class="crighttab greentab" id="cstab1">
+            <div class="ctabbtn" ng-click="pulltab('cstab1')">
+                <span class="ion-chevron-left"></span>
+            </div>
+            <div class="sidetabcontent">
+                <ion-scroll direction="y" class="theroot">
+                    <div class="clr"></div>
+                    <div class="profile-head detailhead" ng-repeat="doc in user">
+                        <div class="card-content">
+                            <div class="card-left"><img class="user-image-circle" ng-if="doc.image != ''" ng-src="{{imgpath}}{{doc.image}}"><img class="user-image-circle" ng-if="doc.image == ''" ng-src="img/default-user.jpg"></div>
+                            <div class="card-detail txt-left">
+                                <p><strong> {{doc.fname}} {{doc.lname}}</strong><br/>
+                                    <span ng-repeat="spec in doc.specializations">
+                                        {{spec.specialization}}{{$last==true? '': ',&nbsp;'}}
+                                    </span></p>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+
+                    <div class="list" ng-repeat="doc in user" style="margin-top:0px;">
+                        <div class="item item-body">
+                            <div class="row txt-left">
+                                <div class="col"><p><strong>Experience</strong><br/>{{doc.exp}}</p></div>	
+                                <div class="col"><p><strong>Qualification</strong><br/>
+                                        <span ng-repeat="qual in doc.qualifications">{{qual.qualification}}{{$last==true? '': ',&nbsp;'}}</span>
+                                    </p></div>	
+                            </div>
+                            <div class="row txt-left">
+                                <div class="col">
+                                    <p><strong>Languages</strong><br/>
+                                        <span ng-repeat="lang in doc.languages">
+                                            {{lang.language| capitalize}}{{$last==true? '': ',&nbsp;'}}
+                                        </span></p>
+                                </div>	
+                                <div class="col">
+                                    <p><strong>Focus Area</strong><br/>
+                                        <span ng-repeat="focus in doc.focuses">
+                                            {{focus.focus}}{{$last==true? '': ',&nbsp;'}}
+                                        </span></p>
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </ion-scroll>
+
+            </div>
+        </div>
+
+        <!--        <div class="crighttab greentab" id="cstab2" >
+                    <div class="ctabbtn" ng-click="pulltab('cstab2')" style="top:45px;">
+                        <span class="ion-chevron-left"></span>
+                    </div>
+        
+                    <ion-scroll direction="y" class="theroot">
+                        <div class="p10">
+                            <div  class="list card post-item greenbox" >
+                                <div class="card-content p0">
+                                    <div class="row post-heading item item-text-wrap ">
+                                        <div class="col col-75">
+                                            <h2 class="post-title">Patient name</h2>
+                                        </div>
+                                        <div class="col col-25 txt-right">
+                                            <div class="infomore" ng-click="infomore('minfo1')">
+                                                <span class="infb"> {{intext}}</span> <i class="ion-android-arrow-forward"></i>
+        
+        
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="post-content item item-text-wrap" post-content>
+                                        <p class="post-excerpt pb10">
+                                            Lorem Ipsum is simply dummy text of the printing
+                                        </p>
+        
+                                        <div class="infomore-div" id="minfo1">
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry
+        
+                                        </div>
+        
+        
+                                    </div>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </ion-scroll>
+        
+                </div>-->
+
+
+
+
+    </ion-content>
+    <div class="sticyfooter joinfooter">
+        <div class="tabs tabs-icon-top">
+            <div class="tab-item muteMic" onclick="classtoggle(this)">
+                <i class="icon ion-ios-mic"></i>
+                <i class="icon ion-ios-mic-off"></i>
+                Mic
+            </div>
+            <div class="tab-item muteVideo" onclick="classtoggle(this)">
+                <i class="icon ion-ios-videocam"></i>
+                Video
+            </div>
+            <!--  <a class="tab-item videoc" onclick="newtoggleclass('this')">
+               <i class="icon ion-videocamera"></i>
+               Video
+           </a>
+                       
+         <a class="tab-item" >
+               <i class="icon ion-refresh"></i>
+               Switch
+           </a>
+           <a class="tab-item muteSub" >
+               <i class="icon ion-volume-low"></i>
+               Volume
+           </a> -->
+        </div>
+    </div>
+</ion-view>

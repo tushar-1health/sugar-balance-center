@@ -1,0 +1,84 @@
+<ion-view class="settings-view">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+ <ion-nav-title>
+       
+          <span  ng-if="apkLanguage == 'english'">Video Broadcast</span>
+        <span  ng-if="apkLanguage != 'english'">{{langtext.video[language]}}  {{langtext.broadcasts[language]}}</span>
+    </ion-nav-title>
+    <ion-content>
+        <div class="row tabnav"  ng-if="apkLanguage == 'english'">
+            <div class="col" ><a  ui-sref="app.content-library"   >Article</a></div>            
+            <div class="col"><a ui-sref="app.video-broadcast"  class="active" >Broadcasts</a> </div>
+
+        </div>
+        <div class="row tabnav"  ng-if="apkLanguage != 'english'">
+            <div class="col" ><a  ui-sref="app.content-library"  >{{langtext.article[language]}}</a></div>            
+            <div class="col"><a ui-sref="app.video-broadcast"   class="active">{{langtext.broadcasts[language]}}</a> </div>
+
+        </div>
+
+<!--   <div>
+    <h3 class="box-title">
+    <button  ng-click="createSession(chatTopic)" type="button">Start Instant Broadcast</button>
+    <button  ng-click="schedule()" type="button">Schedule a Broadcast</button>
+    &nbsp;&nbsp;
+    <input class="btn-video-broadcast" type ="text" name="chatTopic" ng-model="chatTopic" value="chatTopic" />
+    </h3>
+  </div> -->
+       
+  <div class="list cdetail-list" >
+      <div class="list card post-item greenbox"  ng-repeat="vb in videoBroadcastList">
+          <a class="card-content p0">
+                    <div class="row post-heading item item-text-wrap "  ng-class="{'fillbg': vb.owner_id == userid }">
+                        <div class="col col-75">
+                            <h2 class="post-title">{{vb.topic | capitalize}}</h2>
+                            <p class="post-author">
+                                By <span>{{vb.user.fname}}</span><span>  {{vb.start |dateFormat5 }}</span> 
+                            </p>
+                        </div>
+                        <div class="col col-25 ">
+                            <div class="indicater txt-center video">
+                                <i class="icon ion-ios-videocam f20" ng-if="vb.owner_id == userid"></i>
+                                <i class="icon ion-eye f20" ng-if="vb.owner_id !=userid"></i><br/>
+                               {{vb.planned_duration}} mins 
+                            </div> 
+
+                           
+
+                        </div>
+                    </div>
+
+                    <div class="post-content item item-text-wrap" post-content>
+                      <p class="post-excerpt pb10" dynamic-anchor-fix>
+                        {{vb.description}}
+                      </p>
+                      <div ng-if="vb.flag == 1">     
+                        <a ng-click = "joinSession(vb.id,vb.session_id)" ng-if="(show(vb.start) && vb.owner_id !=userid)" class="button join" style="float:right; vertical-align: middle;">
+                          <i class="icon ion-eye f20" ></i> Join
+                        </a>
+                        <a ng-click = "joinAndPublish(vb)" ng-if="(show(vb.start) && vb.owner_id ==userid)" class="button join" style="float:right; vertical-align: middle;">
+                          <i class="icon ion-videocamera f20" ></i> Join
+                        </a>
+                        <a ng-click="tooEarly()" ng-if="(! show(vb.start) )" class="button join" style="float:right; vertical-align: middle;" disabled>
+                          <i class="icon ion-eye f20" ng-if="vb.owner_id !=userid"></i> 
+                          <i class="icon  ion-videocamera f20" ng-if="vb.owner_id == userid"></i> Join
+                        </a>
+                                                                                               
+                      </div>
+                      <div ng-if="vb.flag == 2">
+                          <a  class="button join cancel" style="float:right; vertical-align: middle; background-color: grey;" disabled>
+                          <i class="icon ion-radio-waves f20" ></i> Past
+                          </a>
+                      </div>
+                    </div>
+                    
+                </a>
+        </div>
+            <div class="posts-list" style="text-align: center;padding-top: 40%;" ng-if="videoBroadcastList == ''" >
+                No content available.
+            </div>
+  </div>
+  </ion-content>
+</ion-view>

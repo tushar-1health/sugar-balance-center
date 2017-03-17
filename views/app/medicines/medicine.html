@@ -1,0 +1,115 @@
+<ion-view cache-view="false" class="category-list-view" >
+  <ion-nav-title>
+    <span>Pharmacy</span>
+</ion-nav-title>
+
+
+  
+  <ion-content>
+  <div class="">
+
+		
+		<div class="row tabnav">
+			<div class="col"><a ui-sref="#" class="active">Order</a></div>
+		<div class="col"><a ui-sref="#" >Active</a></div>
+		<div class="col"><a ui-sref="#">Past</a></div>
+		</div>	
+		
+		
+		
+		 <ion-slide-box show-pager="true">
+                        <ion-slide>
+						<div class="posts-list">
+							<div  class="list card post-item mb15">
+								<div class="post-content item item-text-wrap p0">
+									<div  class="card-content paraspacing">
+										<div class="cardheading"><strong>Bhavana</strong></div>
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						 </ion-slide>
+                        <ion-slide>
+						<div class="posts-list">
+							<div  class="list card post-item mb15">
+								<div class="post-content item item-text-wrap p0">
+									<div  class="card-content paraspacing">
+										<div class="cardheading"><strong>Abcd</strong></div>
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						</ion-slide>
+		
+		 </ion-slide-box>
+		
+		
+		
+				
+	
+	<div class="item item-divider">Where Your Provide Prescription</div> 
+	
+ <div class="row cbtn3 mt15">
+				<div class="col">
+				   <button class="button bar" ng-click="modal.show()"> <span class="icon ion-plus-circled"></span> File</button>
+				</div>
+				<div class="col">
+					 <button class="button bar" ng-click="modal.show()"><span class="icon ion-plus-circled"></span> Camera</button>
+				</div>
+				<div class="col">
+					<button class="button bar" ng-click="modal.show()"><span class="icon ion-folder"></span> Records </button>
+				</div>
+</div> 
+
+
+<div class="pr-container"> </div>
+
+
+
+
+		
+</div>
+  </ion-content>
+  
+      <div class="fixedbar">
+        <a class="button btn-add" ui-sref="app.address" > Next <i class="icon ion-arrow-right-c"></i></a>
+     </div>
+  
+</ion-view>
+
+<script id="prescription-type" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title">Provide Prescription</h1>	 
+  <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+	<div class="item item-divider">Provide Prescription From</div> 
+	<div class="plr15">
+    <div class="filelabel mt15">
+	<input type="file" class="img" placeholder="Attachments">
+	<label for="attachfile" style="height:auto;">File Selector</label>
+	</div>
+	
+	<div class="btncamera mt15">Camera </div>
+	</div>
+	
+	
+		<div class="mt15">
+	<ion-list>
+  <ion-checkbox ng-model="filter.blue">Allergies</ion-checkbox>
+  <ion-checkbox ng-model="filter.yellow">Bills</ion-checkbox>
+  <ion-checkbox ng-model="filter.pink">Blood Pressure</ion-checkbox>
+</ion-list>
+</div>
+	
+    </ion-content>
+ <div class="fixedbar">
+        <div class="button btn-add" ng-click="modal.hide()" > Submit </div>
+     </div>
+    </ion-modal-view>
+</script>

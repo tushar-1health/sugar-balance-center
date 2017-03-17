@@ -1,0 +1,38 @@
+<ion-view class="tinder-cards-view">
+    <button class="button button-clear button-positive">Edit</button>
+    <ion-nav-title>
+        <span>Time</span>
+       
+    </ion-nav-title>
+         <div class="row tabnav">
+            <div class="col"><a ui-sref="#" class="active" href="#">Upcoming</a></div>
+            <div class="col"><a ui-sref="#" href="#">Recent</a></div>
+        </div>
+<ion-content scroll="true">
+    <td-cards>
+      <td-card id="td-card" ng-repeat="card in cards"
+      on-transition-left="transitionLeft(card)"
+      on-transition-right="transitionRight(card)"
+      on-transition-out="transitionOut(card)"
+      on-destroy="cardDestroyed($index)"
+      >
+        <div class="image">
+          <div class="no-text overlayBox">
+            <div class="noBox boxed">
+              Nope
+            </div>
+          </div>
+        
+          <div class="yes-text overlayBox">
+            <div class="yesBox boxed">
+              Yes
+            </div>
+          </div>
+        </div>
+        <div class="title">
+          {{card.name}}
+        </div>
+      </td-card>
+    </td-cards>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,29 @@
+<ion-view class="rjoin-view">
+    <ion-nav-title>
+        <span>{{otherUser.user_lang[language]}} </span>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button ng-if="chatActive == 1" class="button button-positive w100p brdradious0" ng-click="getchatsharedata()"> 
+            <strong>Recording</strong> </button>
+    </ion-nav-buttons>
+
+
+
+    <ion-content>
+        <!--     <ion-scroll style="position: absolute; background: #eee; height: 70vh; width:100%;"  direction="y" >
+               <div style="height:3000px;"></div>
+               
+            </ion-scroll> -->
+
+        <section id="chat">
+        </section>
+        <!--  <section class="hide" id="connected-as" style="position: absolute; top: 500px; width: 100px;"> </section>  -->
+        <div class="clr"></div>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="" id="sent-btn" ng-click="msgSend()">        
+        
+    </ion-footer-bar>
+</ion-view>
+
+
+

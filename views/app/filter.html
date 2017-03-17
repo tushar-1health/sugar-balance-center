@@ -1,0 +1,110 @@
+<ion-view class="forms-view">
+  <ion-nav-title>
+    <span>Filter</span>
+  </ion-nav-title>
+  <ion-content>
+    <ul class="list mtop40 addform">
+
+      <div class="item item-divider">Filter Labels-1</div>
+         <ion-list>
+		 <ion-checkbox ng-model="filter.blue">Option 1</ion-checkbox>
+		  <ion-checkbox ng-model="filter.yellow">Option 2</ion-checkbox>
+		</ion-list>
+	  
+	  <div class="item item-divider">Filter Labels-2</div>
+	  <label class="item item-input">
+        <span class="input-label">First Name</span>
+        <input type="text">
+      </label>
+     <label class="item item-input">
+        <span class="input-label">Email</span>
+        <input type="email">
+      </label>
+
+	<div class="item item-divider">Filter Labels-3</div>
+	<ion-list>
+	<div class="row">
+		<div class="col cradio"><ion-radio ng-model="choice" ng-value="'A'" checked>Choose A</ion-radio></div>
+	    <div class="col cradio"> <ion-radio ng-model="choice" ng-value="'B'">Choose B</ion-radio></div>
+	</div>
+	</ion-list>
+
+	<div class="item item-divider">Filter Labels-3</div>
+	 <label class="item item-input item-stacked-label">
+        <span class="input-label">From</span>
+        <input type="date">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">To</span>
+        <input type="date">
+      </label>
+
+ 	<div class="item item-divider">Filter Labels-4</div>
+	 <label class="item item-input">
+        <textarea placeholder="Description"></textarea>
+      </label>
+      <label class="item item-input">
+		 <input type="password" placeholder="Your password">
+      </label>
+
+	<div class="item item-divider">Filter Labels-5</div>
+	
+		<li class="item item-toggle">
+			 Option1
+			 <label class="toggle toggle-assertive">
+			   <input type="checkbox">
+			   <div class="track">
+				 <div class="handle"></div>
+			   </div>
+			 </label>
+		  </li>
+	
+	
+		<li class="item item-toggle">
+			 Option2
+			 <label class="toggle toggle-assertive">
+			   <input type="checkbox" checked>
+			   <div class="track">
+				 <div class="handle"></div>
+			   </div>
+			 </label>
+		  </li>
+	  
+	<div class="item item-divider">Filter Labels-6</div>  
+	<label class="item item-input item-select">
+		<div class="input-label">
+		Select
+		</div>
+		<select>
+		  <option selected> option1</option>
+		  <option >option2</option>
+		  <option>option3</option>
+		</select>
+	  </label>  
+	  
+	<div class="item item-divider">Filter Labels-7</div>    
+	  
+	  
+	<div class="item range">
+	  <i class="icon ion-ios-sunny-outline"></i>
+	  <input type="range" name="volume">
+	  <i class="icon ion-ios-sunny"></i>
+	</div>   
+	  
+	  
+	  
+    <div class="item item-divider">Filter Labels-8</div>
+
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="Search...">
+        </label>
+        <button class="button button-small">
+          Submit
+        </button>
+      </div>
+    </ul>
+  </ion-content>
+
+  
+  </ion-view>

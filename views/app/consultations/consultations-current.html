@@ -1,0 +1,130 @@
+<ion-view cache-view="false" class="records-view">
+    <ion-nav-title>
+        <span  ng-if="apkLanguage == 'english'">Appointments</span>
+        <span  ng-if="apkLanguage != 'english'">{{langtext.consultations[language]}}</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()">
+        </button>
+    </ion-nav-buttons>
+
+
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..."  on-refresh="doRefresh()">
+        </ion-refresher>
+
+
+
+
+        <div class="row tabnav" ng-if="apkLanguage == 'english'">
+            <!--            <div class="col" ><a nav-clear menu-close ng-click="checkCat()">Book</a></div>-->
+            <div class="col"><a nav-clear menu-close ui-sref="app.consultations-current" class="active" >Active</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.consultations-past">Past</a></div>
+        </div>
+        <div class="row tabnav" ng-if="apkLanguage != 'english'">
+            <!--            <div class="col"><a nav-clear menu-close ng-click="checkCat()" >{{langtext.book[language]}}</a></div>-->
+            <div class="col"><a nav-clear menu-close ui-sref="app.consultations-current" class="active" >{{langtext.active[language]}}</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.consultations-past">{{langtext.past[language]}}</a></div>
+        </div>
+
+
+        <div class=""  ng-if="userLogged = 1">             
+            <div class="page-data">
+                <!--<div class="row tabnav">
+                    <div class="col"><a ui-sref="#" class="active">Video : {{video_app.length}}</a></div>                    
+                </div> -->
+                <my-tabs class="themetabs">
+                    <my-tab icon="" title="Video {{all_video.length}}" >
+                        <div class="mt15">
+                            <p class="txt-center">  {{all_video.length==0 ? 'Nothing to see here. Book a consult to get going.':''}}</p>
+                            <div class="posts-list" ng-repeat="vApp in all_video| filter:filterall track by $index | orderBy: 'appointments.scheduled_start_time' | filter:filterall">
+                                <div  class="list card post-item" ng-repeat="prod in video_products[$index]">
+                                    <div class="post-content item item-text-wrap p0">
+                                        <a  ui-sref="app.current-tab({'id': vApp.id,'mode': 1})" class="card-content paraspacing" ng-repeat="doc in vApp.video_doctorsData">
+                                            <p><strong>{{doc.user_lang[language]}}</strong><br/>
+                                                <span ng-repeat="spec in doc.specializations">
+                                                    {{spec.specialization}}{{$last==true? '': ',&nbsp;'}} 
+                                                </span>
+                                            </p>
+                                            <p><strong>Appointment Time : {{vApp.app.scheduled_start_time|dateFormat3}}</strong><br/> 
+                                                <span>{{vApp.app.scheduled_start_time|time1}} To {{vApp.app.scheduled_end_time|time1}}
+                                                </span>
+                                            </p>
+
+                                        </a>                                        
+                                        <div class="row" ng-if="vApp.video_note.length > 0">
+                                            <div class="col txt-center" >
+                                                <a  class="btn crdview-plus" ng-click="viewNote(vApp.video_note[0].id, vApp.app.id)">
+                                                    <span class="icon ion-eye"></span> View Note
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="post-actions  post-footer p0"ng-if="apkLanguage == 'english'">
+                                            <div class="row cardbtn-small p0">
+                                                <div class="col"><a ng-controller="RescheduleCtrl" confirmed-click="cancelApp(vApp.app.id,prod.user_id,1, vApp.app.scheduled_start_time, prod.dr_service_id)" ng-confirm-click="Do you really want to cancel appointment?" id="{{vApp.app.id}}" class="cbtn cancel"><i class="ion-close"></i> Cancel</a></div>
+                                                <div class="col"><a ng-controller="RescheduleCtrl" confirmed-click="rescheduleApp(vApp.app.id, prod.user_id, 1, vApp.app.scheduled_start_time, prod.dr_service_id)" ng-confirm-click="Do you really want to reschedule?" class="cbtn reschedule"><i class="ion-calendar"></i>  Reschedule</a></div>
+                                                <div ng-if="vApp.app.mode == 1" class="col"><a  class="cbtn join" ng-click="joinVideo(vApp.app.mode, vApp.video_time, vApp.video_end_time, vApp.app.id)"><i class="ion-ios-videocam"></i> Join</a></div>
+                                            </div>
+                                        </div>
+                                        <div class="post-actions  post-footer p0" ng-if="apkLanguage != 'english'">
+                                            <div class="row cardbtn-small p0">
+                                                <div class="col"><a ng-controller="RescheduleCtrl" confirmed-click="cancelApp(vApp.id,prod.user_id,1, vApp.scheduled_start_time, prod.dr_service_id)" ng-confirm-click="Do you really want to cancel appointment?" id="{{vApp.app.id}}" class="cbtn cancel"><i class="ion-close"></i> {{langtext.cancel[language]}}</a></div>
+                                                <div class="col"><a ng-controller="RescheduleCtrl" confirmed-click="rescheduleApp(vApp.id, prod.user_id, 1, vApp.scheduled_start_time, prod.dr_service_id)" ng-confirm-click="Do you really want to reschedule?" class="cbtn reschedule"><i class="ion-calendar"></i> {{langtext.reschedule[language]}} </a></div>
+                                                <div ng-if="vApp.app.mode == 1" class="col"><a  class="cbtn join" ng-click="joinVideo(vApp.app.mode, video_time[$parent.$index], video_end_time[$parent.$index], vApp.app.id)"><i class="ion-ios-videocam"></i> {{langtext.join[language]}}</a></div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </my-tab>
+                    <my-tab icon="" title="Clinic {{clinic_app.length}}">
+                        <div class="mt15">
+                            <p class="txt-center">  {{clinic_app.length==0 ? 'Nothing to see here. Book a consult to get going.':''}}</p>
+                            <div class="posts-list" ng-repeat="cApp in clinic_app| filter:filterall track by $index | orderBy: 'appointments.scheduled_start_time'">
+                                <div  class="list card post-item" ng-repeat="prod in clinic_products[$index]">
+                                    <div class="post-content item item-text-wrap p0">
+                                        <a ng-repeat="doc in clinic_doctorsData[$index]" ui-sref="app.current-tab({'id': cApp.appointment_id,'mode': 1})" class="card-content paraspacing" >
+                                            <p><strong>{{doc.user_lang[language]}}</strong><br/>
+                                                <span ng-repeat="spec in doc.specializations">
+                                                    {{spec.specialization}}{{$last==true? '': ',&nbsp;'}} 
+                                                </span><br/><br/>
+                                                <span><strong>Address :</strong> {{prod.prod_service.alias}}<br/>{{prod.prod_service.address}}</span>
+                                            </p>
+                                            <p><strong>Appointment Time : {{cApp.scheduled_start_time|dateFormat3}}</strong><br/> 
+                                                <span>{{cApp.scheduled_start_time|time}} To {{cApp.scheduled_end_time|time}}
+                                                </span>
+                                            </p>
+                                            <div class="clr"></div>
+                                        </a>
+                                        <div class="post-actions  post-footer p0" ng-if="apkLanguage == 'english'">
+                                            <div class="row cardbtn-small p0" ng-if="cApp.status == 0">
+                                                <div class="col"><a confirmed-click="deleteApp(cApp.id,prod.user_id, 3, cApp.scheduled_start_time)" ng-confirm-click="Do you really want to cancel appointment?" id="{{cApp.appointment_id}}" class="cbtn cancel"><i class="ion-close"></i> Cancel</a></div>
+                                            </div>
+                                            <div class="row cardbtn-small p0" ng-if="cApp.status != 0">
+                                                <div class="col"><a ng-controller="RescheduleCtrl" confirmed-click="cancelApp(cApp.id,prod.user_id,1, cApp.scheduled_start_time, prod.dr_service_id)" ng-confirm-click="Do you really want to cancel appointment?" id="{{cApp.appointment_id}}" class="cbtn cancel"><i class="ion-close"></i> Cancel</a></div>
+                                                <div class="col"><a ng-controller="RescheduleCtrl" confirmed-click="rescheduleApp(cApp.id, prod.user_id, 1, cApp.scheduled_start_time, prod.dr_service_id)" ng-confirm-click="Do you really want to reschedule?" class="cbtn reschedule"><i class="ion-calendar"></i>  Reschedule</a></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="post-actions  post-footer p0" ng-if="apkLanguage != 'english'">
+                                            <div class="row cardbtn-small p0" ng-if="cApp.status == 0">
+                                                <div class="col"><a confirmed-click="deleteApp(cApp.id,prod.user_id, 3, cApp.scheduled_start_time)" ng-confirm-click="Do you really want to cancel appointment?" id="{{cApp.appointment_id}}" class="cbtn cancel"><i class="ion-close"></i> {{langtext.cancel[language]}}</a></div>
+                                            </div>
+                                            <div class="row cardbtn-small p0" ng-if="cApp.status != 0">
+                                                <div class="col"><a ng-controller="RescheduleCtrl" confirmed-click="cancelApp(cApp.id, prod.user_id, 3, cApp.scheduled_start_time, prod.dr_service_id)" ng-confirm-click="Do you really want to cancel appointment?" id="{{cApp.appointment_id}}" class="cbtn cancel"><i class="ion-close"></i> {{langtext.cancel[language]}}</a></div>
+                                                <div class="col"><a ng-controller="RescheduleCtrl" confirmed-click="rescheduleApp(cApp.id, prod.user_id, 3, cApp.scheduled_start_time, prod.dr_service_id)" ng-confirm-click="Do you really want to reschedule?" class="cbtn reschedule"><i class="ion-calendar"></i> {{langtext.reschedule[language]}} </a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </my-tab>
+                </my-tabs>
+            </div>                       
+    </ion-content>
+</ion-view>
+

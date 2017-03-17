@@ -1,0 +1,29 @@
+<ion-view class="signup-view auth-view" cache-view="false">
+    <ion-content scroll="false">
+        <div class="row">
+            <div class="col col-center">
+                <div class="card sign-up-container">
+                    <form name="otpForm" class="" novalidate id="otp">
+                        <div class="item item-body">
+                            <label class="item item-input">
+                                <span class="input-label">Verification Code </span>
+                                <input type="text" ng-model="otp"  name="otpcode"  required  placeholder="Enter your OTP" ng-minlength="5" />
+                                 <p ng-show="otpForm.otp.$error.required">OTP required.</p>
+                            </label>            
+                        </div>
+                        <div class="item item-body bottom-content">
+                            <button type="submit" class="button button-assertive button-block" ng-click="checkOTP(otp)" ng-disabled="otpForm.$invalid">
+                               Confirm OTP
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="alternative-actions">
+                    <a class="log-in button button-small button-clear button-light" ui-sref="auth.login">
+                        Log In
+                    </a>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

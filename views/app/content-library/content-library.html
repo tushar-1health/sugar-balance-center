@@ -1,0 +1,83 @@
+<ion-view class="category-feeds-view">
+    <ion-nav-title>
+
+        <span  ng-if="apkLanguage == 'english'">Library</span>
+        <span  ng-if="apkLanguage != 'english'">{{langtext.library[language]}}</span>
+    </ion-nav-title>
+
+    <!--<ion-nav-buttons side="right">
+        <a menu-toggle="right" class="setting" ui-sref="app.content-library-setting"><i class="ion-gear-a"></i></a>
+    </ion-nav-buttons>-->
+
+    <ion-content>
+    <div class="row tabnav">
+            <div class="col"><a  ui-sref="app.content-library"  class="active" >Article</a></div>            
+            <div class="col"><a ui-sref="app.video-broadcast"   >Broadcasts</a> </div>
+          
+    </div>
+        <div class="posts-list" ng-if="clab != ''">
+            <div ng-repeat="contentLab in clab" class="list card post-item" ng-class="contentLab.source=='Exteral'? 'bluebox':'greenbox'"  >
+                <a ui-sref="app.view-content-value({'id': contentLab.id})" class="card-content p0">
+                    <div class="row post-heading item item-text-wrap "  ng-class="(contentLab.content_type=='video')?'fillbg':''" >
+                        <div class="col col-75">
+                            <h2 class="post-title">{{contentLab.content_title| capitalize}}</h2>
+                            <p class="post-author">
+                                By <span>{{contentLab.user}}</span> <span>{{contentLab.created_at| dateFormat3}}</span>
+                            </p>
+                        </div>
+                        <div class="col col-25 ">
+                            <div ng-if="(contentLab.content_type == 'video')&&(contentLab.source == 'Exteral')" class="indicater txt-center video">
+                                <i class="icon ion-ios-videocam f20"></i>
+                                <br/> 
+                            </div>
+                            <div ng-if="((contentLab.content_type == 'video')&&(contentLab.source == 'ugc'))" class="indicater txt-center video">
+                                <i class="icon ion-ios-videocam f20"></i>
+                                <br/> {{contentLab.duration | timesec}}
+                            </div>
+                            <div ng-if="contentLab.content_type == 'artcle'" class="indicater txt-center article">
+                                <i class="icon ion-ios-list-outline f20"></i>
+                                <br/> {{contentLab.content_value.length / 1000| ceil}} min(s)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-content item item-text-wrap" post-content>
+                        <p class="post-excerpt pb10" dynamic-anchor-fix>
+                            {{contentLab.content_desc}}
+                        </p>
+                        <div ng-if="contentLab.content_type == 'artcle'">
+                            <p class="imgincard pb10" ng-if="contentLab.header_img != ''"> <img src="{{attachpath}}{{contentLab.header_img}}" /></p>
+                        </div>
+                        <!--  <div  class="framecontainer mb10"  ng-if="contentLab.content_type == 'video'"> 
+                           
+                            <video width="100%" style="min-height:50px;" controls preload="metadata">
+                                <source src="{{trustSrc(contentLab.url)}}" type="video/mp4">
+                               
+                              Your browser does not support the video tag.
+                            </video> 
+
+                        </div> -->
+                        <div class="post-actions ">
+                            <p class="pb10"> <strong>Category </strong>| <span ng-repeat="specialisation in contentLab.spec">{{specialisation}}{{$last==true? '': ',&nbsp;'}}  </span>
+                            </p>
+                            <!--<p class="pb10"> <strong>Tags </strong>|  </p>-->
+                            <p class="pb10"> <strong>Language </strong>| <span ng-repeat="language in contentLab.lang">{{language| capitalize}} {{$last==true? '': ',&nbsp;'}} </span> </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="posts-list" style="text-align: center;padding-top: 40%;" ng-if="clab == ''" >
+            No content available.
+        </div>
+    </ion-content>
+
+</ion-view>
+
+
+
+
+
+
+
+
+

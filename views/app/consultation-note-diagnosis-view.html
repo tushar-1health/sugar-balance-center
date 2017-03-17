@@ -1,0 +1,46 @@
+<div>
+    <!-- <div style="padding:2px">
+        <div style ="float:left">
+            <a ng-click="shareDiagnosis(cards)" class="button btn-share"><i class="icon ion-android-share-alt"/></a>
+        </div>
+        <div style="float:left">
+            <a ng-click="addObservationDiagnosis(2)" class="button btn-share"><i class="icon ion-ios-plus-outline"/></a>
+        </div>
+    </div> -->
+    
+      <div class="clr"></div>
+        <div class="list card post-item greenbox" ng-repeat="card in cardsDiagnosis">
+            <a ng-click="">
+                <div class="card-content p0">
+                    <div class="row post-heading item item-text-wrap ">
+                        <div class="col col-70">
+                            <h2 class="post-title">
+                              Entry - {{$index + 1}} 
+                              <span>({{card.created_at|dateFormat3}})</span>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="post-content item item-text-wrap p0" >
+                        <p ng-if="card.problems.length == 0"> No problems fed</p>
+                        <div class="row">
+                            <span>{{card.diagnosis}}</span>
+                        </div>
+                        <!-- <div class="post-footer p0">
+                            <div class="row">
+                                <div class="col-80 ">Click to add more</div>
+                            </div>
+                        </div> -->
+                    </div>
+                     <div class="row recordrow" >
+                        <div class="col selectrecord">
+                                <ion-checkbox onclick="selectcheckbox(this)" ng-model="diagnosisId[card.id]" ng-value="{{card.id}}" ng-change="getDiagnosisIds('{{card.id}}')">
+                                    Select
+                                </ion-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+  </td-cards>
+</div>

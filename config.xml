@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets"  xmlns:gap="http://phonegap.com/ns/1.0" id="com.sugarbalancecenter.patient" version="1.0.0">
+ 
+    <name>Sugar Balance Center</name>
+    <preference name="orientation" value="default" />
+    <preference name="fullscreen" value="false" />
+	<preference name="SplashScreen" value="splash" />
+	<preference name="SplashScreenDelay" value="10000"/>
+	
+    <gap:platform name="ios" />
+    <gap:platform name="android" />
+    <description>
+      Sugar Balance Center
+    </description> 
+    <author href="http://www.arth.tech" email="support@arth.tech">
+        Arth Tech
+    </author>
+    <icon src="icon.png" />
+	
+	
+<platform name="android">
+    <splash src="splash/splash.png" />
+    <splash src="splash/drawable-ldpi/background.9.png" platform="android" qualifier="ldpi" />
+    <splash src="splash/drawable-mdpi/background.9.png" platform="android" qualifier="mdpi" />
+    <splash src="splash/drawable-hdpi/background.9.png" platform="android" qualifier="hdpi" />
+    <splash src="splash/drawable-xhdpi/background.9.png" platform="android" qualifier="xhdpi" />
+    <splash src="splash/drawable-xxhdpi/background.9.png" platform="android" qualifier="port-xxhdpi" />
+    <splash src="splash/drawable-xxxhdpi/background.9.png" platform="android" qualifier="port-xxxhdpi" />
+    </platform>
+    
+    <preference name="phonegap-version" value="cli-6.3.0" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="android-build-tool" value="gradle" />
+    
+    <plugin name="Cordova-Plugin-OpenTok-JBS" version="1.0.0" source="npm" />
+    <!-- <plugin name="cordova-plugin-opentok" spec="https://github.com/chendo/cordova-plugin-opentok.git" source="git" /> -->
+    <gap:plugin name="de.appplant.cordova.plugin.printer" source="npm"/>
+
+
+
+    <!-- <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" /> -->
+    <plugin name="cordova-build-architecture" spec="https://github.com/MBuchalik/cordova-build-architecture.git#v1.0.1" source="git" />
+    <gap:plugin name="cordova-plugin-crosswalk-webview@1.6.0" source="npm" />
+    <!-- <gap:plugin name="cordova-plugin-crosswalk-jb" source="npm" /> -->
+    <gap:plugin name="onesignal-cordova-plugin@1.9.0" source="npm" />
+
+    <gap:plugin name="org.apache.cordova.splashscreen" source="npm" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" source="npm" />
+    <gap:plugin name="org.apache.cordova.file" source="npm" />
+    <gap:plugin name="org.apache.cordova.file-transfer" source="npm" />
+    <gap:plugin name="org.apache.cordova.camera" source="npm" />
+    <gap:plugin name="org.apache.cordova.device" source="npm" />
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
+    <gap:plugin name="cordova-plugin-x-toast" source="npm" />
+    <gap:plugin name="org.apache.cordova.statusbar" source="npm" />
+
+    <!-- <plugin name="com.onesignal.plugins.onesignal" spec="1.9.0" source="pgb" /> -->
+
+    
+    <gap:plugin name="cordova-plugin-network-information" source="npm" />
+   
+    <gap:plugin name="cordova-plugin-statusbar" source="npm" />
+    
+    <access origin="*"/> <!-- allow all pages, use for development -->
+    <allow-navigation href="*" />
+    
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="loadUrlTimeoutValue" value="700000" />
+    
+
+    
+    
+
+</widget>

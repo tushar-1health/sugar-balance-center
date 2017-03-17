@@ -1,0 +1,164 @@
+<ion-modal-view>
+    <header class="bar bar-header bar-positive">
+        <h1 class="title"> &nbsp; </h1>
+        <div side="right" class="button button-clear" ng-click="loginModal.hide()">
+            <span class="icon ion-close" style="color:#fff;"></span></div>
+    </header>
+
+    <ion-content > <!--ng-controller="GenericLoginCtrl"-->
+
+        <div class="loginregister">
+            <my-tabs > 
+
+                <my-tab  title="Sign In"> 
+                    <form name="login_form" class="" novalidate ng-cloak id="loginuser" ng-submit="doLogIn()">
+                        <input type="hidden" value="{{interface}}" ng-model="interface" name="interface">
+
+                        <div class="item item-divider">Email / Mobile</div>
+                        <label class="item item-input">
+                            <input type="email" placeholder="Email / Mobile" id="useremail" name="user" ng-model="user.email" required>
+
+                        </label>
+                        <div class="item item-divider">Password</div>
+                        <label class="item item-input" show-hide-container>
+                            <input type="password" placeholder="Password" id="password" name="password" ng-model="user.password" required show-hide-input>                                        
+                        </label>                                    
+
+
+
+                        <div class='error text-center'>
+                            <span class='error text-center'  style="color:#e42012;" ng-model='loginError' ng-bind-html='loginError' ></span>
+                        </div>
+
+
+
+
+
+
+
+
+                        <div class="item-body bottom-content">
+                            <button type="submit" class="button button-balanced button-block"  ng-disabled="(selected_tab == 'Login') ? (login_form.email.$invalid || login_form.password.$invalid) : ((selected_tab == 'Phone') ? (login_form.user_phone.$invalid || login_form.user_pin.$invalid) : false)">
+                                Sign In
+                            </button>
+                        </div></form>
+                    <div class="btnforgot" ng-click="forgotpassword()">Forgot Password</div>
+                </my-tab>
+
+                <my-tab  title="Register"> 
+                    <form name="signupForm" class="" novalidate id="signup">
+
+                        <input type="hidden" value="{{interface}}" ng-model="interface" name="interface">
+                        <input type="hidden" value="{{registervia}}" ng-model="registervia" name="registervia">
+                        <div class="item item-divider">Name</div>        
+                        <label class="item item-input">
+                            <input type="text"  name="name"  ng-required ng-model="user.name" placeholder="Name" ng-minlength="3" />
+                            <div class="clr"></div>
+                            <div ng-show="signupForm.name.$error.minlength" class="serror">Username is too short.</div>
+                            <div ng-show="signupForm.name.$error.invalid" class="serror">Your username is required.</div>
+                        </label>
+                        <div class="item item-divider">Email</div> 
+                        <label class="item item-input">
+
+                            <input type="email" name="email" ng-required ng-blur="checkEmail(user.email)" placeholder="Email" ng-model="user.email" />
+
+                            <div ng-show="signupForm.email.$error.invalid" class="serror">Email is required.</div>
+                            <div ng-show="signupForm.email.$error.email" class="serror">Email is invalid</div>
+                        </label>
+
+                        <div class="item item-divider">Mobile</div> 
+                        <label class="item item-input">
+                            <input type="tel" name="phone" required ng-model="user.phone" ng-blur="checkPhone(user.phone)"  placeholder="Mobile" ng-minlength="10">
+                            <div ng-show="signupForm.phone.$error.minlength" class="serror">Mobile number too short.</div>
+                        </label>
+                        <div class="item item-divider">Password</div> 
+                        <label class="item item-input">
+                            <input type="password" name="password" required ng-model="user.password" placeholder="Password" ng-minlength="6" />
+                            <div ng-show="signupForm.password.$error.minlength" class="serror">Password is too short.</div>
+                        </label>
+                        <div class="item item-divider">Confirm Password</div> 
+                        <label class="item item-input">
+                            <input type="password" name="cpassword" required ng-model="user.cpassword"  placeholder="Confirm Password" ng-minlength="6" change-password-c="{{user.password === user.cpassword}}"/>
+                            <div ng-show="signupForm.cpassword.$dirty && signupForm.cpassword.$error.noMatch1" class="serror">Passwords do not match.</div>
+                            <div ng-show="signupForm.password.$error.minlength" class="serror">Confirm Password is too short.</div>
+                        </label>
+
+
+
+<ion-list class="textwrapterms">
+  <ion-checkbox name="terms" ng-model="terms" ng-required="!terms">
+       I agree to the <span dynamic-anchor-fix><a href="https://hope.arth.tech/termsandconditions.pdf" target="_blank">terms & conditions</a></span> and have read the <span dynamic-anchor-fix><a href="https://hope.arth.tech/privacypolicy.pdf" target="_blank">privacy policy</a> </span> & 
+                            <span dynamic-anchor-fix><a href="https://hope.arth.tech/CancellationPolicy.pdf" target="_blank">cancellation policy.</a></span>
+
+  </ion-checkbox>
+</ion-list>
+
+
+
+
+
+
+           <!--              <label class="item item-input">
+                            <input type="checkbox" name="terms" ng-model="terms" ng-required="!terms" />
+                            I agree to the <span dynamic-anchor-fix><a href="https://hope.arth.tech/termsandconditions.pdf" target="_blank">terms & conditions</a></span> and have read the <span dynamic-anchor-fix><a href="https://hope.arth.tech/privacypolicy.pdf" target="_blank">privacy policy</a> </span> & 
+                            <span dynamic-anchor-fix><a href="https://doctrs.in/CancellationPolicy.pdf" target="_blank">cancellation policy.</a></span>
+                        </label> -->
+
+                        <div class="text-center">
+                            <p ng-model='emailError' ng-bind-html="emailError"></p> 
+                            <p ng-model='phoneError' ng-bind-html="phoneError"></p>
+                        </div>
+
+                        <div class="item item-body bottom-content">
+                            <button type="submit" class="button button-balanced button-block" ng-click="doSignUp()" ng-disabled="signupForm.$invalid">
+                                Sign Up
+                            </button>
+                        </div>
+                    </form>
+                    <div id="checkotp" class="hide">
+                        <form  id="otpUser"  method="get">
+                            <div class="form-group has-feedback">
+                                <div class="item item-divider">Enter your OTP</div> 
+                                <label class="item item-input">
+                                    <input type="text" ng-model="otp" class="form-control"  name="otpcode"  required  placeholder="Enter your OTP" ng-minlength="5" />
+                                </label>
+                            </div>
+
+                            <div class="item item-body bottom-content">
+                                <button type="button"  ng-click="checkOTP(otp)" class="button button-balanced button-block"  >Submit</button>
+                            </div>
+                        </form>
+                        <br/>
+                    </div>
+                </my-tab>
+
+            </my-tabs>
+            <!--<my-tabs  ng-if="language != 'english'">
+                <my-tab  title="{{langtext.login[language]}}"> 
+                    <div class="list">
+                        <label class="item item-input">
+                            <input type="email" placeholder="{{langtext.email[language]}}" id="useremail" name="user" ng-model="user.email" required>
+                        </label>
+
+                        <label class="item item-input" show-hide-container>
+                            <input type="password" placeholder="{{langtext.password[language]}}" id="password" name="password" ng-model="user.password" required show-hide-input>                                        
+                        </label>                                    
+                    </div>
+                    <div class='error text-center'>
+                        <span class='error text-center'  style="color:#e42012;" ng-model='loginError' ng-bind-html='loginError' ></span>
+                    </div>
+
+                    <div class="item-body bottom-content">
+                        <button type="submit" class="button button-positive button-block"  ng-disabled="(selected_tab == 'Login') ? (login_form.email.$invalid || login_form.password.$invalid) : ((selected_tab == 'Phone') ? (login_form.user_phone.$invalid || login_form.user_pin.$invalid) : false)">
+                            {{langtext.login[language]}}
+                        </button>
+                    </div>
+                </my-tab>
+            </my-tabs>-->
+
+
+
+
+        </div>
+    </ion-content>
+</ion-modal-view> 

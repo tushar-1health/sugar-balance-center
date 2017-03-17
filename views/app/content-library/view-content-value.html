@@ -1,0 +1,78 @@
+<ion-view class="category-feeds-view">
+   <ion-nav-title>
+      <span   ng-if="apkLanguage == 'english'">Library</span>
+        <span  ng-if="apkLanguage != 'english'">{{langtext.library[language]}}</span>
+    </ion-nav-title>
+     <!-- <ion-nav-buttons side="right"  >
+        <button ng-click="delete_cl(cval.id)"  class="button button-positive w100p brdradious0"> 
+            <strong>Delete</strong> </button>
+    </ion-nav-buttons> -->
+    <ion-content class="bgwhite">
+        <div class="posts-list" style="margin-bottom:100px;">
+
+            <div class="post-view  post-content item-text-wrap p10">
+                <h2 class="post-title">{{cval.content_title}}</h2>
+                <p class="post-author" >
+                    By <span>{{cval.fname}} {{cval.lname}}</span> <span>{{cval.created_at| dateFormat3}}</span>
+                </p>
+                <div class="post-actions" style="font-style: italic;">
+                    <p  class="pb10"> <strong>Category </strong>|  <span ng-repeat="specialisation in cval.spec">{{specialisation}}{{$last==true? '': ',&nbsp;'}} </span>
+                        <br>
+                        <strong>Language </strong>| <span ng-repeat="language in cval.lang">{{language| capitalize}}{{$last==true? '': ',&nbsp;'}} </span> </p>
+                </div>
+                <p class="post-excerpt pb10" dynamic-anchor-fix style="font-style: italic;"> 
+                    {{cval.content_desc}}
+                </p>
+
+                <div ng-if="cval.content_type == 'artcle'">
+                    <p class="imgincard pb10" ng-if="cval.header_img != ''" >  <img src="{{attachpath}}{{cval.header_img}}" /></p>
+                </div>  
+                <div  class="framecontainer mb10"  ng-if="(cval.content_type == 'video')&&(cval.source =='ugc')"> 
+
+                    <video width="100%" style="min-height:50px;" controls preload="metadata" autoplay>
+                        <source src="{{trustSrc(cval.url)}}" type="video/mp4">
+
+                        Your browser does not support the video tag.
+                    </video> 
+
+                </div>
+                
+                <div  class="framecontainer mb10 ifvideo"  ng-if="(cval.content_type == 'video')&&(cval.source =='Exteral')"> 
+
+                     
+                            <div class="videoWrapper">
+                                <iframe width="560" height="349" src="{{trustSrc(cval.content_path)}}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                       
+
+                </div>
+                <p class="post-text">
+                    {{cval.content_value}}
+                </p>
+            </div>
+
+        </div>
+
+    </ion-content>
+    <ion-footer-bar class="post-footer bar bar-footer" ng-if="cval.content_type == 'artcle'">
+        <div class="row" > 
+            <div class="col col-20 col-center">
+                <a class="button button-icon icon icon-right ion-plus" bigger-text=".post-view .post-text">A</a>
+            </div>
+            <div class="col col-20 col-center">
+                <a class="button button-icon icon icon-right ion-minus" smaller-text=".post-view .post-text">A</a>
+            </div>
+
+        </div>
+    </ion-footer-bar>
+</ion-view>
+
+
+
+
+
+
+
+
+
+

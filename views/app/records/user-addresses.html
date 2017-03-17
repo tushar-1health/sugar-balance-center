@@ -1,0 +1,26 @@
+<ion-view class="records-view">
+    <ion-nav-title>
+       <span  ng-if="apkLanguage == 'english'">Addresses</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button ng-click="addnewaddress()" class="button button-positive w100p brdradious0">
+            <strong>Add New</strong> </button>
+    </ion-nav-buttons>
+    
+    <ion-content>
+        <div class="list">           
+            <div class="posts-list doc-card" ng-repeat="address in addresses">
+                <div  class="list card post-item">
+                    <div class="card-content" >
+                        <strong>{{address.alias}}</strong>
+                        <br>
+                        <div>{{address.address}}</div>
+                        <ion-radio ng-value="{{address.id}}" ng-click="addressSelected({{address.id}})">Order Here</ion-radio>
+                    </div>
+                </div>
+            </div>
+            <div ng-click="confirmOrder()" class="button bar bar-positive" >Place Order</div>
+                            
+        </div>
+    </ion-content>
+</ion-view>

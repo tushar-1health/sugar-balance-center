@@ -1,0 +1,103 @@
+<ion-view cache-view="false" class="records-view">
+    <ion-nav-title>
+        <span>{{spec[0][language]}}</span>
+
+    </ion-nav-title>
+    <!--  <ion-nav-buttons side="right">
+         <button class="button button-icon button-clear ion-person">
+         </button>
+     </ion-nav-buttons>
+     <div class="bar bar-subheader cbar divider-2">
+         <div class="row">
+             <div class="col-50"><a  ui-sref="app.filter"><h4 class="subhead"><i class="icon ion-funnel"></i> Filter</h4></a></div>
+             <div class="col-50"><h4 class="subhead">Sort <i class="icon ion-ios-arrow-thin-down"></i></h4> </div>
+         </div>
+     </div> -->
+    <ion-content>
+        <!--        <div class="row tabnav" ng-if="apkLanguage == 'english'">
+                    <div class="col"><a nav-clear menu-close ui-sref="app.consultation-single-cat-cards({'id': specId})" class="active">Book</a></div>
+                    <div class="col"><a nav-clear menu-close ui-sref="app.consultations-current"  >Active</a></div>
+                    <div class="col"><a nav-clear menu-close ui-sref="app.consultations-past">Past</a></div>
+                </div>
+                <div class="row tabnav" ng-if="apkLanguage != 'english'">
+                    <div class="col"><a nav-clear menu-close ui-sref="app.consultation-single-cat-cards({'id': specId})" class="active">{{langtext.book[language]}}</a></div>
+                    <div class="col"><a nav-clear menu-close ui-sref="app.consultations-current"  >{{langtext.active[language]}}</a></div>
+                    <div class="col"><a nav-clear menu-close ui-sref="app.consultations-past">{{langtext.past[language]}}</a></div>
+                </div>-->
+
+        <div class="list consultview">
+            <h4>{{doctors.length==0?'No Doctors': ''}} </h4>
+            <div class="posts-list doc-card" ng-repeat="doc in doctors"> <!---| orderBy:['instpermission.instant_permission', '-doctorpresense.presence', 'fname', 'lname'] -->
+                <div  class="list card post-item">
+                    <div class="post-content item item-text-wrap p0">
+                        <a ui-sref="app.consultation-profile({'id' : doc.id, 'res' : 'json'})" class="card-content" >
+                            <!--  <div class="rating"><i class="ion-star active"></i> <i class="ion-star active"></i> <i class="ion-star active"></i> <i class="ion-star"></i> <i class="ion-star"></i></br>15 Reviews</div> -->
+                            <div ng-if="doc.doctorpresense.presence == '1'" class="drstatus">Online</div>
+                            <div class="card-left">	
+                                <img class="user-image-circle" ng-if="doc.image != ''" ng-src="{{imgpath}}{{doc.image}}"><img class="user-image-circle" ng-if="doc.image == ''" ng-src="img/default-user.jpg">
+                            </div>
+                            <div class="card-detail txt-left" >
+                                <p><strong>{{doc.user_lang[language]}}</strong><br/>
+                                    <span ng-repeat="spec in doc.specializations">
+                                        {{doc.specializations[0][language]}}{{$last==true? '': ',&nbsp;'}} 
+                                    </span></p>
+                            </div>
+                            <div class="row txt-left">
+                                <div class="col"><p><strong>Experience</strong><br/>{{doc.exp}}</p></div>	
+                                <div class="col"><p><strong>Qualification</strong><br/>
+                                        <span ng-repeat="qual in doc.qualifications">{{qual.qualification}}{{$last==true? '': ',&nbsp;'}}</span></p></div>	
+                            </div>
+                            <div class="row txt-left">
+                                <div class="col"><p><strong>Languages</strong><br/>
+                                        <span ng-repeat="lang in doc.languages">
+                                            {{lang.language| capitalize}}{{$last==true? '': ',&nbsp;'}}
+                                        </span></p></div>	
+                                <div class="col"><p><strong>Focus Area</strong><br/>
+                                        <span ng-repeat="focus in doc.focuses">
+                                            {{focus.focus}}{{$last==true? '': ',&nbsp;'}}
+                                        </span></p></div>	
+                            </div>
+                            <div class="clr"></div>
+                            <div class="post-actions row post-footer"> 
+                                <div class="row" ng-if="doc.isServEnable == 1">
+                                    <div class="col" ng-show="{{doc.drserv['Video'] == 1}}">
+                                        <div class="cbtn" ng-if="serv.mode == 'Video'" ng-repeat="serv in doc.servDr">
+                                            <i class="ion-ios-videocam f22"></i>    
+                                            <span ng-if="doc.instpermission != null">	
+                                                <span ng-if="doc.instpermission.instant_permission == '1'">
+                                                    <i class="ion-ios-bolt" style="font-size:22px; padding-left:8px;"></i>
+                                                </span>
+                                            </span><br/>
+                                            <span class="f16"> &nbsp; INR {{serv.interfaceDocPrice|ceil}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col" ng-show="{{doc.drserv['Chat'] == 2}}">
+                                        <div class="cbtn" ng-if="serv.mode == 'Chat'" ng-repeat="serv in doc.servDr">
+                                            <i class="ion-chatbubble f22" ></i> <span class="f16"></span><br/>
+                                            <span class="f16"> &nbsp; INR {{serv.interfaceDocPrice|ceil}}</span>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col" ng-show="{{doc.drserv['Clinic'] == 3}}">
+                                        <div class="cbtn" ng-if="serv.mode == 'Clinic'" ng-repeat="serv in doc.servDr">
+                                            <i class="ion-medkit f22" ></i><span class="f16"></span><br/>
+                                            <span class="f16"> &nbsp; INR {{serv.interfaceDocPrice|ceil}}</span>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col" ng-show="{{doc.drserv['Home'] == 4}}">
+                                        <div class="cbtn" ng-if="serv.mode == 'Home'" ng-repeat="serv in doc.servDr">
+                                            <i class="ion-person f22" ></i> <span class="f16"></span><br/>
+                                            <span class="f16"> &nbsp; INR {{serv.interfaceDocPrice|ceil}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="doc.isServEnable == 0">
+                                    <p style="margin-left: 40%;"> <strong>Not available</strong></p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

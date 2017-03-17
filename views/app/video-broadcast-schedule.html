@@ -1,0 +1,29 @@
+<ion-view class="settings-view">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <span>Schedule a Broadcast</span>
+  </ion-nav-title>
+  
+  <ion-content>
+  <br/>
+  <form ng-submit ="scheduleBroadcast(schedule)" id="newBroadcast" ng-model="scheduleform">
+    <input class="btn-video-broadcast" type ="text"  ng-model="schedule.chatTopic" />
+    <br>
+    <br>
+    <span>Select Start Date And Time</span>
+    <br>
+    <input type="date" ng-model ="schedule.startdt"  required/>
+    <br>
+    <input type="time" ng-model ="schedule.starttm" required/>
+    <br>
+    <button type="submit" class="button button-positive button-block" ng-click="">
+    Schedule
+    </button>
+    
+    <br/>
+  </form>
+  <br/>        
+  </ion-content>
+</ion-view>

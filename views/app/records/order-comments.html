@@ -1,0 +1,24 @@
+<ion-view class="records-view">
+    <ion-nav-title>
+       <span  ng-if="apkLanguage == 'english'">Comments</span>
+    </ion-nav-title>
+    
+    <ion-content>
+        <div class="list">           
+            <div class="posts-list">
+                <div  class="list card post-item">
+                    <div class="post-content item item-text-wrap p0">
+                        <div class="p15">
+                            <div class="item item-input">
+                            <textarea ng-modal="ordercomments" id="ordercomments" rows="25" cols="500" style="resize: none;" >
+                            </textarea>                                                            
+                            </div>
+                            <div ng-click="gotoAddress()" class="button bar bar-positive" >Go to Address Page</div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,85 @@
+<ion-view cache-view="false" class="category-list-view" >
+  <ion-nav-title>
+    <span>Pathology</span>
+</ion-nav-title>
+
+
+  
+  <ion-content>
+  <div class="">
+
+		
+		<div class="row tabnav">
+			<div class="col"><a ui-sref="#" class="active">Order</a></div>
+		<div class="col"><a ui-sref="#" >Active</a></div>
+		<div class="col"><a ui-sref="#">Past</a></div>
+		</div>	
+		
+		
+		
+		 <ion-slide-box show-pager="true">
+                        <ion-slide>
+						<div class="posts-list">
+							<div  class="list card post-item mb15">
+								<div class="post-content item item-text-wrap p0">
+									<div  class="card-content paraspacing">
+										<div class="cardheading"><strong>Bhavana</strong></div>
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						 </ion-slide>
+                        <ion-slide>
+						<div class="posts-list">
+							<div  class="list card post-item mb15">
+								<div class="post-content item item-text-wrap p0">
+									<div  class="card-content paraspacing">
+										<div class="cardheading"><strong>Abcd</strong></div>
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						</ion-slide>
+		
+		 </ion-slide-box>
+		
+		
+<div class="item item-divider">Where Your Provide Prescription</div> 
+	
+ <div class="row cbtn3 mt15">
+				<div class="col">
+				   <button class="button bar" ng-click="modal.show()"> <span class="icon ion-plus-circled"></span> File</button>
+				</div>
+				<div class="col">
+					 <button class="button bar" ng-click="modal.show()"><span class="icon ion-plus-circled"></span> Camera</button>
+				</div>
+				<div class="col">
+					<button class="button bar" ng-click="modal.show()"><span class="icon ion-folder"></span> Records </button>
+				</div>
+</div> 
+				
+	
+	<div class="item item-divider mt15">Select Test Packages</div> 
+	
+ <div class="p15">
+ <a class="button button-positive" ui-sref="app.packages-list">View Packages</a>
+ </div> 
+
+
+<div class="pr-container"> </div>
+
+
+
+
+		
+</div>
+  </ion-content>
+  
+
+  
+</ion-view>
+

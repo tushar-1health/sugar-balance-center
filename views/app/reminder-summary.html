@@ -1,0 +1,126 @@
+<ion-view class="tinder-cards-view">
+    <button class="button button-clear button-positive">Edit</button>
+    <ion-nav-title>
+       <span  ng-if="apkLanguage == 'english'">Reminder</span>
+        <span  ng-if="apkLanguage != 'english'"> {{langtext.reminder[language]}}</span>
+       
+    </ion-nav-title>
+         <div class="row tabnav psrelative" ng-if="apkLanguage == 'english'">
+        <div class="col"><a ui-sref="app.reminder" href="#">Upcoming</a></div>
+        <div class="col"><a ui-sref="app.reminder-recent"   href="#">Recent</a></div>
+        <div class="col"><a ui-sref="app.reminder-summary" class="active" href="#">Summary</a></div>
+    </div>
+    <div class="row tabnav psrelative" ng-if="apkLanguage != 'english'">
+        <div class="col"><a ui-sref="app.reminder"  href="#">{{langtext.upcoming[language]}}</a></div>
+        <div class="col"><a ui-sref="app.reminder-recent"  href="#">{{langtext.recent[language]}}</a>
+        </div>
+        <div class="col"><a ui-sref="app.reminder-summary" class="active" href="#">Summary</a></div>
+    </div>
+	<ion-content scroll="true" class="bgwhite">
+
+        <div class="mt40 p15">
+            <p>Click on a task to view event by event summary</p>
+        </div>
+
+      	<div class="list card post-item" ng-repeat="card in cards" ng-click="detailedSummary(card.record)">
+      		
+            <div ng-if="card.type == 21" > <!--Diet Plan-->
+                <div class="item item-divider mt15 ng-binding fontcenter">Diet Plan</div>
+                <div class="row pr-b10">
+                    <div class="col">
+                        <strong>No Of Days</strong>
+                        <br/>
+                        <span>{{card.no_of_days}}</span>
+                    </div>
+                    <div class="col">
+                        <strong> Start Date </strong>
+                        <br/>
+                        <span>{{card.startdt}}</span>
+                    </div>
+                    <div class="col">
+                        <strong> End Date </strong>
+                        <br/>
+                        <span>{{card.enddt}}</span>
+                    </div>
+                </div>
+                <div class ="row pr-b10" >
+                    <div class="col" style="text-align: center;">
+                        <strong>Total: {{card.total}}</strong>                        
+                    </div>
+                </div>
+                <div class ="post-actions row post-footer"> 
+                    <div class="row pr-b10">
+                        <div class="col" style="text-align: center; font-size: 16px;">
+                            <strong class="ion-help yellowfont" ></strong>
+                            <br/>
+                            <span>{{card.unattended}}</span>
+                        </div>  
+                        <div class="col" style="text-align: center; font-size: 16px;">
+                            <strong class="ion-close-circled redfont"></strong>
+                            <br/>
+                            <span>{{card.notCompleted}}</span>
+                        </div>  
+                        <div class="col" style="text-align: center; font-size: 16px;">
+                            <strong class="ion-checkmark-circled greenfont"></strong>
+                            <br/>
+                            <span>{{card.completed}}</span>
+                        </div>                
+                    </div>
+                </div> 
+                <div class ="post-actions row post-footer">
+                    <span>Created {{card.createdt}} </span>
+                    <span>&nbsp;by 
+                        <span ng-if="checkIfSelf(card.createby)"> You </span> 
+                        <span ng-if="! checkIfSelf(card.createby)">{{card.createbyname}}</span> </span>
+                </div>           
+            </div>
+
+            <div ng-if="card.type == 30" > <!--Tasks-->
+                <div class="item item-divider mt15 ng-binding fontcenter">Task</div>
+                <div class="row pr-b10">
+                    <div class="col">
+                        <strong>Task</strong>
+                        <br/>
+                        <span>{{card.task}}</span>
+                    </div>
+                    <div class="col">
+                        <strong> Frequency </strong>
+                        <br/>
+                        <span>Once Every {{card.frequency}}</span>
+                    </div>
+                </div>
+                <div class ="row pr-b10" >
+                    <div class="col" style="text-align: center;">
+                        <strong>Total: {{card.total}}</strong>                        
+                    </div>
+                </div>
+                <div class ="post-actions row post-footer"> 
+                    <div class="row pr-b10">
+                        <div class="col" style="text-align: center; font-size: 16px;">
+                            <strong class="ion-help yellowfont" ></strong>
+                            <br/>
+                            <span>{{card.unattended}}</span>
+                        </div>  
+                        <div class="col" style="text-align: center; font-size: 16px;">
+                            <strong class="ion-close-circled redfont"></strong>
+                            <br/>
+                            <span>{{card.notCompleted}}</span>
+                        </div>  
+                        <div class="col" style="text-align: center; font-size: 16px;">
+                            <strong class="ion-checkmark-circled greenfont"></strong>
+                            <br/>
+                            <span>{{card.completed}}</span>
+                        </div>                
+                    </div>
+                </div> 
+                <div class ="post-actions row post-footer">
+                    <span>Created {{card.createdt}} </span>
+                    <span>&nbsp;by 
+                        <span ng-if="checkIfSelf(card.createby)"> You </span> 
+                        <span ng-if="! checkIfSelf(card.createby)">{{card.createbyname}}</span> </span>
+                </div>             
+            </div>
+      	</div>
+  	
+    </ion-content>
+</ion-view>

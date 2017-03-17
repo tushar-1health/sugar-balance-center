@@ -1,0 +1,45 @@
+<div>
+    <!-- <div style="padding:2px">
+        <div style ="float:left">
+            <a ng-click="shareObservation(cards)" class="button btn-share" id="shareObs"><i class="icon ion-android-share-alt"/></a>
+            <a class="button btn-delete" style="display: none" id="cancelObs" ng-click="cancelObservation()"><i class="icon ion-android-close"></i></a>
+        </div>
+    	<div style="float:left">
+    		<a ng-click="addObservationDiagnosis(1)" class="button btn-share"><i class="icon ion-ios-plus-outline"/></a>    
+    	</div>
+        <div class ="clr"/></div>
+    </div> -->
+    
+        <div class="clr"></div>
+        <div class="list card post-item greenbox" ng-repeat="card in cards">
+            <a ng-click="">
+                <div class="card-content p0">
+                    <div class="row post-heading item item-text-wrap ">
+                        <div class="col col-70">
+                            <h2 class="post-title">
+                            	Entry - {{$index + 1}} 
+                            	<span>({{card.created_at|dateFormat3}})</span>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="post-content item item-text-wrap p0" >
+                        <p ng-if="card.problems.length == 0"> No problems fed</p>
+                        <div class="row">
+                            <span>{{card.observation}}</span>
+                        </div>
+                        <!-- <div class="post-footer p0">
+                            <div class="row">
+                                <div class="col-80 ">Click to add more</div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="row recordrow" >
+                        <div class="col selectrecord selectObservations">
+                            <ion-checkbox onclick="selectObservationCheckbox(this)" ng-model="obsId[card.id]" ng-value="{{card.id}}" ng-change="getObsIds('{{rec.id}}')"> Select</ion-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+</div>

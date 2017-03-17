@@ -1,0 +1,41 @@
+<ion-view class="payment-view">
+    <ion-nav-title>
+        <span>Success</span>
+    </ion-nav-title>
+    <ion-content>
+        <div class="content-section">
+            <div class="list card">
+                <div class="item item-body allp" ng-repeat="doc in doctor">
+                    <p><strong>Dr. {{doc.fname}} {{doc.lname}}</strong><br/>
+                        <span ng-repeat="spec in doc.specializations">
+                            {{spec.specialization}},   
+                        </span>
+                    </p>
+                    <!--<p><strong>Qualification</strong><br/>MBBS,MD</p>-->
+                    <ul class="clist">
+                        <li ng-repeat="pro in product">{{pro.desc}},{{pro.mode}} </li>
+                        <li ng-repeat="pInc in  prod_inclusion track by $index">{{pInc.mode}}, {{pInc.desc}},
+                            <span ng-if="pInc.discount < 100">Discount : {{pInc.discount}} %</span>, {{pInc.validity_in_days}} Days
+                        </li>
+                    </ul>
+                    <p ><strong>Appointment Details</strong> 
+                    <p >
+                        <strong>Date: </strong> {{appointment[0].appointments.scheduled_start_time|dateFormat}} <br/>
+                        <strong>Time: </strong> {{appointment[0].appointments.scheduled_start_time|time}} to {{appointment[0].appointments.scheduled_end_time|time}} <br/>
+                        <strong>Mode: </strong> {{product[0].mode}}<br/>
+                    </p>
+                    </p>
+                </div>
+            </div>
+            <h4 class="txt-centre">Price: INR {{product[0].price}}</h4>
+            <div class="ctab commontab">
+                <div class="success-btns">
+                    <a ng-click="shareRecords(product[0].user_id)" class="button  button-positive">Share Records</a>
+                    <br/>
+                    <br/>
+                    <a ui-sref="#" class="button  button-positive">Join Now</a>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

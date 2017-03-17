@@ -1,0 +1,43 @@
+    <style type="text/css">
+        .count { font-size: 20px; }
+        .card { margin:5px 5px; height: 117px; }
+    </style>
+<ion-view class="records-view">
+ <ion-nav-title>
+        <span>{{ selectedDoctorName }}</span>
+    </ion-nav-title>
+    <ion-content>
+
+
+            <div class="tabcontainer" >
+                <p ng-if="records.length == 0">No record(s) found.</p>
+            </div> 
+
+            <div ng-repeat="cat in allCats" ng-if="$index % 3 == 0" class="row" width="99%">
+                <div class="col greenbox card">
+                    <div class="post-heading">
+                        <a ng-click="gotopage(allCats[$index].url,allCats[$index].category)">
+                            <p class="text-center">{{allCats[$index].name}}</p>
+                            <p class="text-center count">{{allCats[$index].count}} </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col greenbox card" ng-if="allCats.length > ($index + 1)">
+                    <div class="post-heading">
+                        <a ng-click="gotopage(allCats[$index + 1].url,allCats[$index + 1].category)">
+                            <p class="text-center">{{allCats[$index + 1].name}}</p>
+                            <p class="text-center count">{{allCats[$index + 1].count}} </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col greenbox card"  ng-if="allCats.length > ($index + 2)">
+                    <div class="post-heading">
+                        <a ng-click="gotopage(allCats[$index + 2].url,allCats[$index + 2].category)">
+                            <p class="text-center">{{allCats[$index + 2].name}}</p>
+                            <p class="text-center count">{{allCats[$index + 2].count}} </p>
+                        </a>
+                    </div>
+                </div>        
+            </div>
+    </ion-content>
+</ion-view>

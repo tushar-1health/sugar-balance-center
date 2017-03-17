@@ -1,0 +1,167 @@
+<ion-view class="tinder-cards-view">
+    <button class="button button-clear button-positive">Edit</button>
+    <ion-nav-title>
+        <span>{{catname}}</span>
+    </ion-nav-title>
+    <!-- <ion-nav-buttons side="right">
+        <button ng-click="shareTreatment()" class="button button-icon icon ion-android-share-alt">Share</button>
+        <button ng-click="addNew('{{catid}}')" class="button button-icon button-clear icon ion-plus"> Add</button>
+    </ion-nav-buttons> -->
+    <ion-content scroll="true" class="bgwhite">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+        
+        
+        <div class="row" ng-repeat="card in cards.records">
+            <div class = "col">
+                <!--task -->
+                <td-card  id="td-card" on-transition-out="swipedAway(card.id)" ng-if="catid == 30">
+                    <h4 class="cardtitle">
+                        <span> Task </span>                    
+                    </h4>
+                    <div class="tdincard">
+                        <p ng-if="card['task-1']"> {{card['task-1']}} - ({{card['status-5']}})</p>
+                        <p ng-if="card['no-of-times']">Once every {{card['no-of-times']}} {{card['no-of-frequency']}}</p>
+                        <p ng-if="card['start-time']">From: {{card['start-time']}}</p>
+                        <p ng-if="card['end-time']">To: {{card['end-time']}}</p>
+                    </div>                
+                </td-card>
+
+                <!--diet-->
+                <td-card  id="td-card" on-transition-out="swipedAway(card.id)" ng-if="catid == 21">
+                    <a ng-click="getDetails(card['record_id'])">
+                        <h4 class="cardtitle">
+                            <span>Diet</span>
+                        </h4>
+                     </a>
+                        <div class="tdincard">
+                            <p ng-if="card['start-date-4']">{{card['start-date-4']}} To {{card['end-date-3']}}</p>
+                            <p ng-if="card['notes-21']">Notes: {{card['notes-21']}}</p>
+                            <p ng-if="card['no-of-days']">No of days: {{card['no-of-days']}}</p>
+                            <div> 
+                                <div class="dietdays">
+                                    <button class="button button-positive button-small inbtn" ng-repeat="dd in cards['diet-details'][$parent.$parent.$parent.$index]" ng-controller="mealDetails2Ctrl" ng-click="daymodal({{$index}},{{$parent.$parent.$index}})">
+                                        <!-- <span class="icon ion-plus-circled"></span> --> Day {{$index + 1}}</button>
+                                </div>
+                            </div>
+                        </div>                       
+                </td-card>
+
+                <!--medication-->
+                <td-card  id="td-card" on-transition-out="swipedAway(card.id)" ng-if="catid == 3">
+                    <h4 class="cardtitle">
+                        <span>Medication</span>
+                    </h4>
+                    <div class="tdincard">
+                        <p ng-if="card.name">{{card.name}} - {{card.strength}} </p>
+                        <p ng-if="card.frequency && card['no-of-frequency-1']"> ( Once every {{card.frequency}} {{card['no-of-frequency-1']}} )</p>
+                        <p ng-if="card['start-date']">From: {{card['start-date']}}</p>
+                        <p ng-if="card['end-date']">To: {{card['end-date']}}</p>
+                        <p ng-if="card.intake">Intake: {{card.intake}}</p>
+                    </div>
+                </td-card>
+
+                <!--investigations-->
+                <td-card  id="td-card" on-transition-out="swipedAway(card.id)" ng-if="catid == 5">
+                    <h4 class="cardtitle">
+                        <span>Investigations</span>
+                    </h4>
+                    <div class="tdincard">
+                        <p ng-if="card.investigation">{{card.investigation}}
+                            <span ng-if="card['status-2']">({{card['status-2']}})</span>
+                        </p>
+                        <p ng-if="card['conducted-on-1']">Conducted on: {{card['conducted-on-1']}}</p>
+                        <p ng-if="card['to-be-conducted-before-1']">To be Conducted before: {{card['to-be-conducted-before-1']}}</p>
+                        <p ng-if="card['conducted-by']">Conducted by: {{card['conducted-by']}}</p>
+                        <p ng-if="card['result']">Result: {{card['result']}} ({{card['inference']}})</p>
+                        <p ng-if="card['reference-range']">Optimum Result: {{card['reference-range']}}</p>
+                        <p ng-if="card['notes-4']">Notes: {{card['notes-4']}}</p>
+                    </div>                
+                </td-card>
+
+                <!--procedure-->
+                <td-card  id="td-card" on-transition-out="swipedAway(card.id)" ng-if="catid == 4">
+                    <h4 class="cardtitle">
+                        <span>Procedure</span>
+                    </h4>
+                    <div class="tdincard"> 
+                        <p ng-if="card['name-3']">{{card['name-3']}}
+                            <span ng-if="card['status-1']">({{card['status-1']}})</span>
+                        </p>
+                        <p ng-if="card['conducted-on']">Conducted on: {{card['conducted-on']}}</p>
+                        <p ng-if="card['to-be-conducted-before']">To be Conducted before: {{card['to-be-conducted-before']}}</p>
+                        <p >
+                          <span ng-if="card['performed-by']">Performed by: {{card['performed-by']}}</span>
+                          <span ng-if="card['performed-at']"> at {{card['performed-at']}}</span>
+                        </p>
+                        <p ng-if="card['body-location']">Body-Location: {{card['body-location']}}</p>
+                        <p ng-if="card['reference-range']">Optimum Result: {{card['reference-range']}}</p>
+                        <p ng-if="card['notes-3']">Notes: {{card['notes-3']}}</p>
+                    </div>                
+                </td-card>
+
+                <!--referral-->
+                <td-card  id="td-card" on-transition-out="swipedAway(card.id)" ng-if="catid == 9">
+                    <h4 class="cardtitle">
+                        <span>Referral</span>
+                    </h4>
+                    <div class="tdincard">
+                        <p ng-if=" card['referred-to']">  {{card['referred-to']}}</p>
+                        <p ng-if="card['referred-by']">Referred By: {{card['referred-by']}}</p>
+                        <p ng-if="card['referred-on']">On: {{card['referred-on']}}</p>
+                        <!-- <p ng-if="card['related-problem-5']">Related Problem: {{card['related-problem-5']}}</p> -->
+                        <p ng-if="card['notes-9']">Notes: {{card['notes-9']}}</p>
+                    </div>                
+                </td-card> 
+            </div>
+        </div> 
+        
+ 
+        
+    </ion-content>
+</ion-view>
+<script id="mealdispdetails" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="modalhead txt-center">Meal Details - {{Mealday}}</h1>
+    <button class="button button-clear pull-right" ng-click="submitmodal()">Cancel</button>       
+    </ion-header-bar>
+    <ion-content>
+    <div ng-if="dietPlanDetails.length == 0"><p class="text-center">No data added</p></div>
+    <div ng-repeat="diet in dietPlanDetails">
+    <div class="item item-divider mt15">Meal {{$index+1}}</div>
+    <div ng-repeat="meal in diet" ng-if="meal.fields.name == 'meal-1' || meal.fields.name == 'value'">
+    <div class="row" >
+    <div class="col" ng-if="meal.fields.field == 'Time' && meal.value != '' && meal.value != '00:00:00'">{{meal.value|timeN}}</div>
+    <div class="col" ng-if="meal.fields.field != 'Time'">{{meal.value}}</div>
+    </div>
+    </div>
+    </div>  
+    </ion-content>
+    </ion-modal-view>
+</script>
+<script id="mealdetails" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="modalhead txt-center">Meal Details</h1>
+    <button class="button button-clear pull-left" ng-click="submitmodal()">Cancel</button>
+    <div class="buttons buttons-right pull-right"><span class="right-buttons">
+    <button type="submit" ng-click="saveMeal(day)" class="button button-positive w100p brdradious0" ng-disabled="addRecordForm.$invalid" disabled="disabled"> 
+    <strong>Save</strong> </button>
+    </span></div>
+    </ion-header-bar>
+    <ion-content>
+    <div ng-repeat="meal in mealDetails[day]">
+    <div class="item item-divider mt15">Meal {{$index+1}}</div>
+    <label class="item item-input">
+    <input type="time" placeholder="Time" ng-model="mealDetails[day][$index].time"  required="">
+    </label>
+    <label class="item item-input">
+    <textarea placeholder="Notes" name="" ng-model="mealDetails[day][$index].details" maxlength="" rows="2" cols="50"></textarea>
+    </label>
+    </div>  
+    </ion-content>
+    </ion-modal-view>
+</script>

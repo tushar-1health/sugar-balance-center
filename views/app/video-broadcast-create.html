@@ -1,0 +1,100 @@
+ <ion-view class="settings-view">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <span>Video Broadcast</span>
+  </ion-nav-title>
+  <ion-content>
+  <div class="row tabnav">
+            <div class="col"><a  ui-sref="app.video-broadcast-create" class="active">Create</a></div>            
+            <div class="col"><a ui-sref="app.video-broadcast"   >Broadcasts</a> </div>    
+  </div>
+  <div>
+    <form>
+  
+          <div class="item item-divider"><span>Title: </span></div>
+     
+          <label class="item item-input listreq">
+            <input ng-model="create.broadcastTitle" type = "text" required/>
+          </label>
+    
+          <div class="item item-divider"><span>Description: </span></div>
+   
+          <label class="item item-input listreq">
+            <textarea ng-model="create.broadcastDescription"  required></textarea>
+          </label>
+    
+          <div class="item item-divider"><span>Start Date: </span></div>
+   
+        <label class="item item-input listreq">
+            <input type="date" ng-model ="create.startdt"  required/>
+        </label>
+          
+     
+          <div class="item item-divider"><span>Start Time: </span></div>
+     
+        <label class="item item-input listreq">
+            <input type="time" ng-model ="create.starttm"  required/>
+        </label>          
+   
+          <div class="item item-divider"><span>Planned Duration: (in min)</span></div>
+  
+          <label class="item item-input listreq">
+            <input type="number" ng-model ="create.duration" required/>
+          </label>
+   
+          <div class="item item-divider"><span>Viewer Registration</span></div>
+    
+          <label class="item item-list listreq">
+            <select ng-model = "create.registration" class ="cselect" required>
+              <option value='free'>Free</option>
+              <option value ='paid'>Paid</option>
+            </select>
+          </label>
+       
+          <div class="item item-divider" ng-if="create.registration =='paid'"><span>Rate</span></div>
+     
+        <label class="item item-input listreq" ng-if="create.registration =='paid'">
+          <input type="number" ng-model="create.rate" required/>
+        </label>
+        
+        <div class="item item-divider">No of publishers: </div>
+       
+        <label class="item item-list listreq">
+         <select ng-model = "create.noOfPublishers" class="cselect"required>
+            <option value='1'>1</option>
+            <option value ='2'>2</option>
+          </select>
+        </label>
+        
+        <div class="item item-divider"><span>Permitted Viewers: </span></div>
+        
+       
+        <label class="item item-input listreq">
+         <span ng-if="create.noOfPublishers == 1">unlimited</span>
+         <span ng-if="create.noOfPublishers == 2">300</span>
+        </label>        
+       
+
+<!-- <div class="item item-divider">Name*</div>
+<label class="item item-input listreq">
+    <input type="text" placeholder="Name" ng-model="name" name="name" required="" ng-minlength="3" >
+</label>
+
+<div class="item item-divider">Date</div>
+<label class="item item-input listreq">
+    <input type="date" placeholder="Name" ng-model="name" name="name" required="" ng-minlength="3" >
+</label>
+
+<div class="item item-divider">Time</div>
+<label class="item item-input listreq">
+    <input type="time" placeholder="Name" ng-model="name" name="name" required="" ng-minlength="3" >
+</label> -->
+
+
+      <button ng-click="submit()" class="button button-positive button-block">Submit</button>
+    </form>
+  </div>
+  </ion-content>
+</ion-view>

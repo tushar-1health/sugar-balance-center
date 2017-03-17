@@ -1,0 +1,115 @@
+<ion-view class="records-view">
+    <ion-nav-title>
+        <span>{{doctor[0].fname}} {{doctor[0].lname}}</span>
+    </ion-nav-title>
+    <!-- <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-person">
+        </button>
+    </ion-nav-buttons> -->
+    <div ng-repeat="doc in doctor">
+        <div class="profile-head">
+            <div class="card-content">
+                <!--  <div class="rating"><i class="ion-star active"></i> <i class="ion-star active"></i> <i class="ion-star active"></i> <i class="ion-star"></i> <i class="ion-star"></i></br>15 Reviews</div> -->
+                <div class="card-left"><img class="user-image-circle" ng-if="doc.image != ''" ng-src="{{imgpath}}{{doc.image}}"><img class="user-image-circle" ng-if="doc.image == ''" ng-src="img/default-user.jpg"></div>
+                <div class="card-detail txt-left">
+                    <p><strong> {{doc.fname}} {{doc.lname}}</strong><br/>
+                        <span ng-repeat="spec in doc.specializations">
+                            {{spec.specialization}}{{$last==true? '': ',&nbsp;'}}
+                        </span></p>
+                    <div class="button button-small button-outline button-positive viewmore" ng-click="modal.show()">View more</div>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+    </div>
+    <ion-content>
+        <div class="ioncontent">
+            <div class="whitetab" style="margin-top:87px;">
+                <my-tabs class="themetabs" > <!--- class="tabs-positive tabs-icon-top"-->
+                    <my-tab icon="ion-ios-videocam tabicon" title="{{appointment.mode==1 ? 'Video': ''}}
+                            {{appointment.mode==2 ? 'Chat': ''}}
+                            {{appointment.mode==3 ? 'Clinic': ''}}
+                            {{appointment.mode==4 ? 'Home': ''}}" >
+                        <!-- Tab 1 content -->
+                        <div class="tabc2">
+                            <ul class="clist">
+                                <li>{{Prod.prod_service.alias}}</li>
+                                <li ng-repeat="pInc in Inc track by $index">{{pInc.mode}}, {{pInc.desc}},
+                                    <span ng-if="vInc.discount < 100">Discount : {{pInc.discount}} %</span>, {{pInc.validity_in_days}} Days
+                                </li>
+                            </ul>
+
+                            <div class="clr"></div>
+                            <div class="item item-body p0 brd-0" ng-repeat="ps in prSch track by $index">
+                                <!--                                    <strong>Available on </strong>-->
+<!--                                <ul class="wk">
+                                    <li ng-repeat="day in ps.service_details| orderBy:'' | groupBy:['day_of_week']">
+                                        <strong ng-show="day.group_by_CHANGED">{{ day.day_of_week|limitTo:1}} : </strong>
+                                        {{day.from|limitTo:2}} - {{day.to|limitTo:2}}
+                                    </li>
+                                </ul>	-->
+                                <div class="sche-date">
+                                    <div class="leftarrow" ng-click="getFirstSlots(ps.supersaas_id, $index, appointment.mode)">Earliest Slot</div> 
+                                    <input type="date" ng-model="schdate[$index]" value="schdate[$index]|dateFormat1" ng-change="getNextSlots(schdate[$index], vs.supersaas_id, $index, serv)"/>
+                                    <input type="hidden" ng-model="nextdate[$index]" value="nextdate[$index]|datetime"/>
+                                    <div class="rightarrow" ng-click="getNextSlots(nextdate[$index], ps.supersaas_id, $index, app.mode)"> Next Slot </div>
+                                </div>
+                                <div ng-if="schP[$index] == ps.supersaas_id">
+                                    {{pSch[$index]==''? 'No slots available':''}}
+                                    <ul class="timesheet"  ng-repeat="(key,slot) in pSch[$index]">
+                                        <li onclick="toggleclass(this);" ng-repeat="slt in slot" ng-if="slt['sdate'] < nextdate" ng-model="timeslot" ng-click="bookSlot(slt['start'][0], slt['finish'][0], ps.supersaas_id)"> 
+                                            {{slt['start'][0]|time1}} <!---- {{slt['finish'][0]|time}}                                                          --->
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="section-footer">                                                    
+                                <a class="button button-full button-positive" ng-click="bookNewAppointment(Prod.id)">Book</a>
+                                <a class="button button-full button-positive" confirmed-click="cancelReschedule()" ng-confirm-click="Do you really want to cancel rescheduling?">Cancel</a>
+                            </div>
+                        </div>
+                    </my-tab>
+                </my-tabs>
+            </div>
+        </div>
+    </ion-content>
+        <script id="viewmoreprofile.html" type="text/ng-template">
+        <ion-modal-view>
+        <div class="profile-head detailhead" ng-repeat="doc in doctor">
+        <div class="card-content">
+        <div class="card-left"><img class="user-image-circle" ng-if="doc.image != ''" ng-src="{{imgpath}}{{doc.image}}"><img class="user-image-circle" ng-if="doc.image == ''" ng-src="img/default-user.jpg"></div>
+        <div class="card-detail txt-left">
+        <p><strong> {{doc.fname}} {{doc.lname}}</strong><br/>
+        <span ng-repeat="spec in doc.specializations">
+        {{spec.specialization}}{{$last==true? '': ',&nbsp;'}}
+        </span></p>
+        <div class="button button-small button-outline button-assertive viewmore" ng-click="modal.hide()">Close</div>
+        </div>
+        <div class="clr"></div>
+        </div>
+        </div>
+        <ion-content>
+        <div class="list" ng-repeat="doc in doctor" style="margin-top:65px;">
+        <div class="item item-body">
+        <div class="row txt-left">
+        <div class="col"><p><strong>Experience</strong><br/>{{doc.exp}}</p></div>	
+        <div class="col"><p><strong>Qualification</strong><br/>
+        <span ng-repeat="qual in doc.qualifications">{{qual.qualification}}{{$last==true? '': ',&nbsp;'}}</span>
+        </p></div>	
+        </div>
+        <div class="row txt-left">
+        <div class="col"><p><strong>Languages</strong><br/>
+        <span ng-repeat="lang in doc.languages">
+        {{lang.language}}{{$last==true? '': ',&nbsp;'}}
+        </span></p></div>	
+        <div class="col"><p><strong>Focus Area</strong><br/>
+        <span ng-repeat="focus in doc.focuses">
+        {{focus.focus}}{{$last==true? '': ',&nbsp;'}}
+        </span></p></div>	
+        </div>
+        </div>
+        </div>
+        </ion-content>
+        </ion-modal-view> 
+    </script>
+</ion-view>

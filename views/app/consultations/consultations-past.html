@@ -1,0 +1,118 @@
+<ion-view cache-view="false"  class="records-view">
+    <ion-nav-title>
+        <span  ng-if="apkLanguage == 'english'">Past Appointments</span>
+        <span  ng-if="apkLanguage != 'english'">{{langtext.consultations[language]}}</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()">
+        </button>
+    </ion-nav-buttons>
+
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..."  on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <div class="row tabnav" ng-if="apkLanguage == 'english'">
+            <!--            <div class="col"><a nav-clear menu-close ng-click="checkCat()" >Book</a></div>-->
+            <div class="col"><a nav-clear menu-close ui-sref="app.consultations-current" >Active</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.consultations-past" class="active">Past</a></div>
+        </div>
+
+        <div class="row tabnav"ng-if="apkLanguage != 'english'">
+            <!--            <div class="col"><a nav-clear menu-close ng-click="checkCat()" >{{langtext.book[language]}}</a></div>-->
+            <div class="col"><a nav-clear menu-close ui-sref="app.consultations-current" >{{langtext.active[language]}}</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.consultations-past" class="active">{{langtext.past[language]}}</a></div>
+        </div>
+
+        <ion-refresher pulling-icon="ion-arrow-down-b" on-refresh="refreshItems()">
+        </ion-refresher>
+        <div class="" ng-if="userLogged = 1">
+            <div class="page-data">
+                <!--<div class="row tabnav">
+                    <div class="col"><a ui-sref="#"  class="active">Video : {{video_app_past.length}}</a></div>
+                </div> -->
+                <my-tabs class="themetabs">
+                    <my-tab title="Video : {{video_app_past.length}}">
+                        <div class="tabcontainer p0" >
+                            <p class="txt-center">  {{video_app_past.length==0 ? 'Nothing to see here. Book a consult to get going.':''}}</p>
+                            <div class="posts-list" ng-repeat="vAppPast in all_video| limitTo:pastDitemsv | filter:filterall  track by $index">
+                                <div  class="list card post-item" ng-repeat="prod_past in video_products_past[$index]">
+                                    <div class="post-content item item-text-wrap p0">
+                                        <div class="card-content paraspacing" ng-repeat="doc_past in vAppPast.video_doctorsData_past">
+                                            <p><strong>{{doc_past.user_lang[language]}} </strong><br/>
+                                                <span ng-repeat="spec in doc_past.specializations">
+                                                    {{spec.specialization}}{{$last==true? '': ',&nbsp;'}} 
+                                                </span>
+                                            </p>
+                                            <p><strong>Appointment Time : {{vAppPast.video_app.scheduled_start_time|dateFormat3}}</strong><br/> 
+                                                <span>{{vAppPast.video_app.scheduled_start_time|time1}} To {{vAppPast.video_app.scheduled_end_time|time1}}
+                                                </span>
+                                            </p>                                            
+                                        </div>
+                                        <div class="row" ng-if="td.video_past_note.length > 0">
+                                            <div class="col txt-center" >
+                                                <a class="btn crdview-plus" ng-click="viewNote(td.video_past_note[0].id, vAppPast.id)">
+                                                    <span class="icon ion-eye"></span> View Note
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="post-actions  post-footer p0">
+                                            <div class="row cardbtn-small p0">
+                                                <div class="cardpast-bar {{vAppPast.status==3 ?'fgreen':'fred'}}">
+                                                    <i class="{{vAppPast.status==3 ?'ion-checkmark':'ion-close'}}"></i>
+                                                    {{vAppPast.video_app.status==4 ? 'Cancelled':vAppPast.video_app.status==5?'Cancelled by patient':vAppPast.video_app.status==8?'Cancelled by doctor':vAppPast.video_app.status==6 ? 'Patient no-show':vAppPast.video_app.status==7 ? 'Doctor no-show':vAppPast.video_app.status==3 ? 'Consulted':'Cancelled'}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ion-infinite-scroll on-infinite="pastvideo()" ng-if="video_app_past.length" distance="1%">
+                            </ion-infinite-scroll>
+
+                        </div>
+                    </my-tab>
+                    <my-tab title="Clinic : {{clinic_app_past.length}}">
+                        <div class="tabcontainer p0" >
+                            <p class="txt-center">  {{clinic_app_past.length==0 ? 'Nothing to see here. Book a consult to get going.':''}}</p>
+                            <div class="posts-list" ng-repeat="cAppPast in all_clinic| limitTo:pastclinicitems | filter:filterall">
+                                <div  class="list card post-item" ng-repeat="prod_past in clinic_products_past[$index]">
+                                    <div class="post-content item item-text-wrap p0">
+                                        <div class="card-content paraspacing" ng-repeat="doc_past in cAppPast.clinic_doctorsData_past">
+                                            <p><strong>{{doc_past.user_lang[language]}}</strong><br/>
+                                                <span ng-repeat="spec in doc_past.specializations">
+                                                    {{spec.specialization}}{{$last==true? '': ',&nbsp;'}} 
+                                                </span><br/><br/>
+                                                <span><strong>Address :</strong> {{prod_past.prod_service.alias}}<br/>{{prod_past.prod_service.address}}</span>
+                                            </p>
+                                            <p><strong>Appointment Time : {{cAppPast.clinic_app.scheduled_start_time|dateFormat3}}</strong><br/> 
+                                                <span>{{cAppPast.clinic_app.scheduled_start_time|time}} To {{cAppPast.clinic_app.scheduled_end_time|time}}
+                                                </span>
+                                            </p>
+                                            <div class="clr"></div>
+                                        </div>
+                                        <div class="post-actions  post-footer p0">
+                                            <div class="row cardbtn-small p0">
+                                                <div class="cardpast-bar {{cAppPast.clinic_app.status==3 ?'fgreen':'fred'}}">
+                                                    <i class="{{cAppPast.clinic_app.status==3 ?'ion-checkmark':'ion-close'}}"></i>
+                                                    {{cAppPast.clinic_app.status==4 ? 'Cancelled':cAppPast.clinic_app.status==5?'Cancelled by patient':cAppPast.clinic_app.status==8?'Cancelled by doctor':cAppPast.clinic_app.status==6 ? 'Patient no-show':cAppPast.clinic_app.status==7 ? 'Doctor no-show':cAppPast.clinic_app.status==3 ? 'Consulted':''}}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ion-infinite-scroll on-infinite="pastclinic()" ng-if="clinic_app_past.length" distance="1%">
+                            </ion-infinite-scroll>
+
+                        </div>
+                    </my-tab>
+                </my-tabs>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+

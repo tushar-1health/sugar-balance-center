@@ -1,0 +1,31 @@
+<ion-view class="rjoin-view">
+    <ion-nav-title>
+        <span>{{user[0].fname}} {{user[0].lname}}</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+	<button class="button button-icon button-clear" ng-click="exitVideo()"> Exit</button>
+		
+    </ion-nav-buttons>
+   
+    <ion-content>
+        <div class="fltr-mesg"> &nbsp;</div>
+        <div class="mediascreen" >
+            <div id='myPublisherDiv' style="position:absolute;right: 10px;bottom:10px; text-align:center;">
+				
+				</div> 
+           <div id='subscribersDiv' class="subscribediv"></div> 
+        </div>
+
+
+    </ion-content>
+    <div class="sticyfooter joinfooter">
+        <div class="tabs tabs-icon-top">
+            <div class="tab-item muteMic" onclick="classtoggle(this)">
+                <i class="icon ion-ios-mic"></i>
+                <i class="icon ion-ios-mic-off"></i>
+                Mic
+            </div>
+           
+        </div>
+    </div>
+</ion-view>

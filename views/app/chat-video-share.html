@@ -1,0 +1,59 @@
+<ion-view class="category-detail-view">
+    <ion-nav-title>
+        <span>Chat Recording</span>
+       
+    </ion-nav-title>
+   <ion-nav-buttons side="right">
+    <a ui-sref="app.video-chat"> <button class="button button-positive w100p brdradious0" >  
+                        <strong>Create</strong> </button></a>
+   </ion-nav-buttons>
+    <ion-content>
+         <div class="posts-list" ng-if="videoChatdata !=''">
+
+            <div  class="list card post-item greenbox" ng-repeat="vchat in videoChatdata">
+               <a ui-sref="app.view-chat-video({'id': vchat.id})" class="card-content p0">
+                    <div class="row post-heading item item-text-wrap "  ng-class="{'fillbg': vchat.user_type == 'doctor' }">
+                        <div class="col col-75">
+                            <h2 class="post-title">{{vchat.created_at| dateFormat6}}</h2>
+                            <p class="post-author">
+                                By <span>{{vchat.fname}} {{vchat.lname}}</span> 
+                            </p>
+                        </div>
+                        <div class="col col-25 ">
+
+
+                            <div class="indicater txt-center video">
+                                <i class="icon ion-ios-videocam f20"></i><br/>
+                               {{vchat.duration | timesec}} 
+                            </div> 
+
+                            
+
+                        </div>
+                    </div>
+
+                    <div class="post-content item item-text-wrap" post-content>
+                        <p class="post-excerpt pb10" dynamic-anchor-fix>
+                            {{vchat.chat_comment}}
+                        </p>
+                    
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <div class="posts-list" ng-if="videoChatdata ==''">
+          <div class="notfoundtext">  No record found</div>
+             
+        </div>
+      
+        
+    </ion-content>
+    <!--    <div class="footerbar fixedbar">
+            <a class="button btn-share" ><i class="icon ion-android-add-circle"></i> New</a>
+        </div>-->
+</ion-view>
+
+
+
+

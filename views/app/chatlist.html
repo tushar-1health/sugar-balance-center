@@ -1,0 +1,43 @@
+<ion-view class="category-detail-view">
+    <ion-nav-title>
+
+        <span  ng-if="apkLanguage == 'english'">Chats</span>
+        <span  ng-if="apkLanguage != 'english'">{{langtext.chats[language]}}</span>
+    </ion-nav-title>
+    <ion-content>
+        <div class="row tabnav" ng-if="apkLanguage == 'english'">
+            <div class="col"><a nav-clear menu-close ui-sref="app.chatlist" class="active" ui-sref-opts="{reload: true}">Active</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.past-chatlist" ui-sref-opts="{reload: true}">Past</a></div>
+        </div>
+        <div class="row tabnav" ng-if="apkLanguage != 'english'">
+            <div class="col"><a nav-clear menu-close ui-sref="app.chatlist" class="active" ui-sref-opts="{reload: true}">{{langtext.active[language]}}</a></div>
+            <div class="col"><a nav-clear menu-close ui-sref="app.past-chatlist" ui-sref-opts="{reload: true}">{{langtext.past[language]}}</a></div>
+        </div>
+
+        <div class="list cdetail-list">
+            <div class="chatlist" ng-if="chatParticipants != ''">
+                <a class="item item-icon-right {{cp[0].chat_id}}" ng-click="goChat(cp[0].chat_id, cp[0].chat_session.start_time, '{{cp[0].chat_session.start_time|dateFormat5}}')" ng-repeat="cp in chatParticipants">
+                    <img class="user-image-circle" ng-if="participant[$index][0].image != ''" ng-src="{{imgpath}}{{participant[$index][0].image}}"><img class="user-image-circle" ng-if="participant[$index][0].image == ''" ng-src="img/default-user.jpg">
+                    <span class="title">{{participant[$index][0].fname}}</span>
+                    <div ng-if="msg[$index] != ''" >
+                        <p class="description">{{msg[$index].message}}</p>
+                        <span class="listright" ng-if="curDate == (msg[$index].tstamp | dateFormat2)">{{msg[$index].tstamp| time1}} </span>
+                        <span class="listright" ng-if="curDate != (msg[$index].tstamp | dateFormat2)">{{msg[$index].tstamp| dateFormat3}} </span>
+
+                    </div>
+                </a>
+            </div>
+            <div class="chatlist" ng-if="chatParticipants == ''">
+                <div style="align-content: center; font-weight: bold;">
+                    <p class="description txt-center">
+                        No chats found
+                    </p>
+                </div>
+            </div>
+        </div>  
+    </ion-content>
+</ion-view>
+
+
+
+

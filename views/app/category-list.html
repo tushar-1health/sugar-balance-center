@@ -1,0 +1,122 @@
+<ion-view cache-view="false" class="category-list-view" >
+    <button class="button button-clear button-positive">Edit</button>
+    <ion-nav-title>
+
+        <span  ng-if="apkLanguage == 'english'">Home </span>
+
+        <span  ng-if="apkLanguage != 'english'">{{cattext.home[language]}}</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="right"  >
+        <span class="pull-right" side="right" style="color: #fff; cursor: context-menu;">Beta</span>
+    </ion-nav-buttons>
+
+
+    <ion-content>
+       <div class="slider">
+            <ion-slide-box show-pager="false" does-continue="true" auto-play="true" slide-interval="10000">
+                <ion-slide ng-repeat="image in sliderImages">
+                    <img src={{image.image_url}} alt={{image.image_title}}/>
+                </ion-slide>
+            </ion-slide-box>
+        </div>  
+
+        <div class="list catlist mtm-5" ng-if="apkLanguage == 'english'" > 
+
+
+            <div ng-repeat="menu in menuItem">
+                <span ng-if="menu.intereface_menu.menu == 'consultations' && menu.intereface_menu.menu != 'settings'">
+                    <a class="item item-icon-right" ng-click="{{menu.url}}"  >
+                        <i class="cicon ion-android-person"></i>
+                        <span class="ctitle">Book Now</span>
+                    </a>
+                    <span ng-if="userLogged == 0">
+                        <a class="item item-icon-right"  ng-click="checkRedirect('app.consultations-current')" >
+                            <i class="cicon ion-ios-time"></i>
+                            <span class="ctitle">Your Appointments </span>
+                        </a>
+                    </span>
+                    <span ng-if="userLogged == 1">
+                        <a class="item item-icon-right" ui-sref="app.consultations-current" >
+                            <i class="cicon ion-ios-time"></i>
+                            <span class="ctitle">Your Appointments </span>
+                        </a>
+                    </span>
+                </span>
+                <span ng-if="userLogged == 0">
+                    <a class="item item-icon-right" ng-click="checkRedirect(menu.url)" ng-if="menu.intereface_menu.menu != 'consultations' && menu.intereface_menu.menu != 'settings'" >
+                        <i class="cicon
+                           {{menu.intereface_menu.menu=='records'? 'ion-folder': menu.intereface_menu.menu=='your chats'? 'ion-chatboxes':menu.intereface_menu.menu=='packages'? 'ion-cube':menu.intereface_menu.menu=='library'? 'ion-ios-book':menu.intereface_menu.menu=='pathology'? 'ion-erlenmeyer-flask':menu.intereface_menu.menu=='medicines'? 'ion-medkit': 'ion-cube'}}"></i>
+                        <span class="ctitle"> {{menu.intereface_menu.menu|capitalizeEach}}</span>	
+
+                    </a>
+                </span>
+                <span ng-if="userLogged == 1">
+                    <a class="item item-icon-right"  ui-sref="{{menu.url}}" ng-if="menu.intereface_menu.menu != 'consultations' && menu.intereface_menu.menu != 'settings'" >
+                        <i class="cicon
+                           {{menu.intereface_menu.menu=='records'? 'ion-folder': menu.intereface_menu.menu=='your chats'? 'ion-chatboxes':menu.intereface_menu.menu=='packages'? 'ion-cube':menu.intereface_menu.menu=='library'? 'ion-ios-book':menu.intereface_menu.menu=='pathology'? 'ion-erlenmeyer-flask':menu.intereface_menu.menu=='medicines'? 'ion-medkit': 'ion-cube'}}"></i>
+                        <span class="ctitle"> {{menu.intereface_menu.menu|capitalizeEach}}</span>	
+
+                    </a>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="list catlist mtm-5" ng-if="apkLanguage != 'english'">
+
+            <div ng-repeat="menu in menuItem">
+                <span ng-if="menu.intereface_menu.menu == 'consultations' && menu.intereface_menu.menu != 'settings'">
+
+                    <span ng-if="userLogged == 0">
+                        <a class="item item-icon-right" ng-click="{{menu.url}}">
+                            <i class="cicon ion-medkit"></i>
+                            <span class="ctitle" ng-init="item = menu.intereface_menu.menu">Book Now</span>
+                        </a>
+                    </span>
+                    <span ng-if="userLogged == 1">
+                        <a class="item item-icon-right" ng-click="{{menu.url}}">
+                            <i class="cicon ion-medkit"></i>
+                            <span class="ctitle" ng-init="item = menu.intereface_menu.menu">{{cattext[item][language]}}</span>
+                        </a>
+                    </span>
+
+                    <span ng-if="userLogged == 0">
+                        <a class="item item-icon-right"  ng-click="checkRedirect('app.consultations-current')" >
+                            <i class="cicon ion-ios-time"></i>
+                            <span class="ctitle">Your Appointments </span>
+                        </a>
+                    </span>
+                    <span ng-if="userLogged == 1">
+                        <a class="item item-icon-right" ui-sref="app.consultations-current">
+                            <i class="cicon ion-ios-time"></i>
+                            <span class="ctitle" >{{cattext['appointment'][language]}}</span>
+                        </a>
+                    </span>
+
+                </span>
+
+
+                <span ng-if="userLogged == 0">
+                    <a class="item item-icon-right" ng-click="checkRedirect(menu.url)" ng-if="menu.intereface_menu.menu != 'consultations' && menu.intereface_menu.menu != 'settings'" >
+                        <i class="cicon
+                           {{menu.intereface_menu.menu=='records'? 'ion-folder': menu.intereface_menu.menu=='your chats'? 'ion-chatboxes':menu.intereface_menu.menu=='packages'? 'ion-cube':menu.intereface_menu.menu=='library'? 'ion-ios-book':menu.intereface_menu.menu=='pathology'? 'ion-erlenmeyer-flask':menu.intereface_menu.menu=='medicines'? 'ion-medkit': 'ion-cube'}}"></i>
+                        <span class="ctitle"> {{menu.intereface_menu.menu|capitalizeEach}}</span>	
+
+                    </a>
+                </span>
+                <span ng-if="userLogged == 1">
+                    <a class="item item-icon-right" ui-sref="{{menu.url}}" ng-if="menu.intereface_menu.menu != 'consultations' && menu.intereface_menu.menu != 'settings'" >
+                        <i class="cicon
+                           {{menu.intereface_menu.menu=='records'? 'ion-clipboard': menu.intereface_menu.menu=='chats'? 'ion-chatboxes':menu.intereface_menu.menu=='packages'? 'ion-cube':menu.intereface_menu.menu=='library'? 'ion-ios-book':menu.intereface_menu.menu=='pathology'? 'ion-erlenmeyer-flask':menu.intereface_menu.menu=='medicines'? 'ion-medkit': 'ion-cube'}}"></i>
+                        <span class="ctitle" ng-init="item = menu.intereface_menu.menu">{{cattext[item][language]}}</span>	
+
+                    </a>
+                </span>
+
+
+
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,66 @@
+<ion-view class="records-view" >
+    <ion-nav-title>
+        <span>{{doctor[0].fname}} {{doctor[0].lname}}</span>
+    </ion-nav-title>
+
+
+
+    <ion-content>
+        <div class="tabcontainer p0 mt0">
+            <div class="posts-list" >
+                <div  class="list card post-item">
+                    <div class="post-content item item-text-wrap p0">
+                        <div  class="card-content paraspacing">
+                            <p><strong>{{doctor[0].fname}} {{doctor[0].lname}}</strong><br/>
+                                <span ng-repeat="spec in doctor[0].specializations">
+                                    {{spec.specialization}} {{$last==true? '': ',&nbsp;'}}
+                                </span></p>
+                            <p ng-if="mode != '2'"><strong>Appointment Time: </strong> {{app[0].appointments.scheduled_start_time|dateFormat3}} <br/> {{app[0].appointments.scheduled_start_time|time}} to {{app[0].appointments.scheduled_end_time|time}} </p>
+                            <p ng-if="mode != '2'"><strong>Mode: </strong> {{app[0].appointments.mode==1? 'Video':''}}{{app[0].appointments.mode==2? 'Chat':''}}{{app[0].appointments.mode==3? 'Clinic':''}}{{app[0].appointments.mode==4? 'Home':''}}</p>
+                            <p><strong>Qualification:</strong> 
+                                <span ng-repeat="qual in doctor[0].qualifications">
+                                    {{qual.qualification}} {{$last==true? '': ',&nbsp;'}}
+                                </span> </p>
+                            <p><strong>Languages: </strong> 
+                                <span ng-repeat="lang in doctor[0].languages">
+                                    {{lang.language}} {{$last==true? '': ',&nbsp;'}}
+                                </span></p>
+                            <div class="clr"></div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!----
+        <div class="ctab commontab">
+            <ion-tabs class="tabs-positive tabs-icon-top">
+                <ion-tab title="Record " >
+                    <div class="tabcontainer">
+                        <p class="txt-centre">2 Records Shared by you</p>
+                        <p class="txt-centre">3 Records  Shared by Dr.ABC </p>
+                        <p class="txt-centre"><button class="button button-positive">   View / Share</button></p>
+                    </div>
+                </ion-tab>
+                <ion-tab title="Prev-Appointment" >
+                    <div class="tabcontainer">
+                        <p>Under Construction</p>
+                    </div>
+                </ion-tab>
+            </ion-tabs>
+        </div>  
+        --->
+    </ion-content>
+    <div class="footerbar">
+
+        <a class="button cancel" ng-controller="RescheduleCtrl" confirmed-click="cancelApp(app[0].appointments.id,doctor[0].id,app[0].appointments.mode, app[0].appointments.scheduled_start_time)" ng-confirm-click="Do you really want to cancel appointment?" ><i class="ion-close"></i>  Cancel</a>
+        <a class="button reschedule" ng-controller="RescheduleCtrl" confirmed-click="rescheduleApp(app[0].appointment_id, doctor[0].id, app[0].appointments.mode, app[0].appointments.scheduled_start_time)" ng-confirm-click="Do you really want to reschedule?" ><i class="ion-calendar"></i>  Reschedule</a>
+        <a ng-if="app[0].appointments.mode == 2" class="button startchat" ui-sref="app.join-chat({'id': app[0].appointment_id, 'mode': mode})" ui-sref-opts="{reload: true}"> <i class="ion-chatbubble"></i> Chat</a>
+        <a ng-if="app[0].appointments.mode == 1" class="button join" ng-click="joinDoctor(app[0].appointment_id, time, endTime, app[0].appointment_id)" > <i class="ion-ios-videocam"></i>  Join</a>
+
+    </div>
+    <!------- ui-sref="app.patient-join({'id': app[0].appointments.id, 'mode': mode})  ui-sref-opts="{reload: true}" --->
+</ion-view>
+

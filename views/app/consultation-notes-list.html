@@ -1,0 +1,33 @@
+<ion-view class="tinder-cards-view">
+    <button class="button button-clear button-positive">Edit</button>
+    <ion-nav-title>
+        <span>View Notes</span>
+    </ion-nav-title>
+    
+    <ion-content scroll="true" class="bgwhite">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+      
+        <div class="list cdetail-list" ng-if="createnew != 1" >
+            <div class="chatlist achat" ng-repeat="card in cards">
+                <a class="item item-icon-right" ng-click="openNotesDetails(card.id)">           
+                    <span class="title">{{card.date| dateFormat3}}</span>                        
+                    <span class="chat-time">View</span>
+                </a>
+            </div>
+        </div>
+        <div ng-if="createnew == 1">
+          <label class="item item-list listreq">
+              <input ng-model="newnote.title" type = "text" placeholder="Title" class="hide" id="newnote" />
+          </label>
+          <label class="item item-input listreq">
+              <input type="date" ng-model ="newnote.date" value={{newnote.date}}  required/>
+          </label>
+          <button ng-click="addNote()" class="button button-positive button-block">Add Note</button>
+        </div>
+        
+  	
+    </ion-content>
+</ion-view>

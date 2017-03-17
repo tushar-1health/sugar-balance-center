@@ -1,0 +1,72 @@
+<ion-view class="tinder-cards-view">
+    <button class="button button-clear button-positive">Edit</button>
+    <ion-nav-title>
+        
+        <span  ng-if="apkLanguage == 'english'">Reminder</span>
+        <span  ng-if="apkLanguage != 'english'"> {{langtext.reminder[language]}}</span>
+    </ion-nav-title>
+    <div class="row tabnav psrelative" ng-if="apkLanguage == 'english'">
+        <div class="col"><a ui-sref="app.reminder" class="active" href="#">Upcoming</a></div>
+        <div class="col"><a ui-sref="app.reminder-recent" href="#">Recent</a></div>
+        <div class="col"><a ui-sref="app.reminder-summary"  href="#">Summary</a></div>
+    </div>
+    <div class="row tabnav psrelative" ng-if="apkLanguage != 'english'">
+        <div class="col"><a ui-sref="app.reminder" class="active" href="#">{{langtext.upcoming[language]}}</a></div>
+        <div class="col"><a ui-sref="app.reminder-recent" href="#">{{langtext.recent[language]}}</a></div>
+        <div class="col"><a ui-sref="app.reminder-summary"  href="#">Summary</a></div>
+    </div>
+    <ion-content scroll="true" class="bgwhite">
+
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+
+
+
+
+
+        <div class="mt40 p15">
+            <p>Swipe right to mark a task as completed or swipe left to mark it as missed</p>
+
+        </div>
+        <div class="citem item-divider" ng-if="reminder!=''" >{{curDate |dateFormat3}}</div>
+        <td-cards ng-if="reminder==''">
+           <p style="text-align:center">No reminder's found</p>
+        </td-cards>
+
+        <td-cards ng-if="reminder!=''">
+            <td-card id="td-card" ng-repeat="rems in reminder"
+                     on-transition-left="transitionLeft(rems.id)"
+                     on-transition-right="transitionRight(rems.id)"
+                     on-transition-out="transitionOut(rems.id)"
+                     on-destroy="cardDestroyed($index)"
+                     on-swipe-left="cardSwipedLeft($index)"
+                     on-swipe-right="cardSwipedRight($index)"
+
+                     on-partial-swipe="cardPartialSwipe(amt)"   >
+
+                <h4 class="cardtitle">
+                    {{rems.reminder_date| dateFormat3}} {{rems.reminder_time}}
+
+                </h4>
+                <div class="tdincard">
+                    <h4 class="mt0">{{rems.reminder_msg}}</h4>
+
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+
+                </div>
+
+                <div class="title">
+                    <div class="row">
+                        <div class="col txt-left fred"><i class="ion-reply"></i> Missed</div>
+                        <div class="col txt-right fgreen"> Completed <i class="ion-forward"></i></div>
+                    </div>
+                </div>
+            </td-card>
+       </td-cards>
+
+
+    </ion-content>
+</ion-view>

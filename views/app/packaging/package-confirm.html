@@ -1,0 +1,81 @@
+<ion-view cache-view="false" class="category-list-view" >
+    <ion-nav-title>
+        <span>{{pack.package.name}}</span>
+    </ion-nav-title>
+    <ion-content>
+        <div class="item item-body allp">
+            <p>
+                <strong >Package : </strong> {{pack.package.name}}<br>
+                <strong >Price : </strong> INR {{pack.package.interfacePrice|ceil}}<br>
+                <strong >Duration : </strong> <span ng-if="pack.package.validity_in_days != 0">{{pack.package.validity_in_days}} Days</span>
+                <span  ng-if="pack.package.validity_in_days == 0">NA</span><br>
+            </p>
+            <p>
+                <strong > Description : </strong > <br/>
+                {{pack.package.desc}}
+            </p>
+            <!--            <div class="sbtn viewmore">
+                            <span ng-controller="pkgDetailsCtrl" ng-click="modal.show();">View Details</span>
+                        </div>-->
+        </div>
+
+        <div class="item item-divider">Terms</div>  
+        <div class="item item-body">
+            <ul class="clist">
+                <li>{{pack.package.terms_and_conditions}}</li>
+            </ul>
+            <!--            <div class="sbtn viewmore"><span ng-controller="pkgtermsCtrl" ng-click="modal.show();">View Details</span></div>-->
+        </div>
+        <div class="item item-divider">Payment</div>
+        <br/>
+        <div class="row"  ng-if="apply != 1">
+            <div class="col col-75">
+                <input type="text" class="custominput" id="coupon" Placeholder="Enter Coupon Code"  ng-model="ccode" />
+                <span id="coupon_error"></span>
+            </div>
+            <div class="col">
+                <button class="button button-small button-assertive csbtn" ng-click="applyCouponCode(ccode)">Apply</button>
+            </div>
+        </div>
+        <div class="fg txt-centre" ng-if="apply == 1">Applied Discount</div>
+        <div class="pprice" ng-if="apply == 1">Final Price: INR {{pack.package.interfacePrice - discountApplied|ceil}}</div>
+    </ion-content>
+    <div class="fixedbar" ng-if="apkLanguage == 'english'">
+        <div class="button btn-add" ng-click="payNow(pack.package.interfacePrice - discountApplied)" >Pay Now </div>
+
+    </div>
+    <div class="fixedbar" ng-if="apkLanguage != 'english'">
+        <div class="button btn-add" ng-click="payNow(pack.package.interfacePrice - discountApplied)" >{{langtext.payment[language]}} </div>
+
+    </div>
+</ion-view>
+
+<script id="pkg-details" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title" ng-if="apkLanguage == 'english'">Package Description</h1>
+  <h1 class="title" ng-if="apkLanguage != 'english'">{{langtext.package[language]}} {{langtext.description[language]}}</h1>
+    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+    <div class="cardcont txt-justify">
+    <p>{{pack.package.desc}} </p>    
+    </div>
+    </ion-content>
+    </ion-modal-view>
+</script>
+
+<script id="pkg-terms" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title"  ng-if="apkLanguage == 'english'">Terms & Conditions</h1>
+  <h1 class="title"  ng-if="apkLanguage != 'english'">{{langtext.terms[language]}} {{langtext.conditions[language]}}</h1>
+    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+    <div class="cardcont txt-justify">
+    <p>{{pack.package.terms_and_conditions}}</p>
+    </div>
+    </ion-content>
+    </ion-modal-view>
+</script>

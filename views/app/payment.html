@@ -1,0 +1,149 @@
+<ion-view class="payment-view">
+    <ion-nav-title>
+        <span  ng-if="apkLanguage == 'english'">Payment</span>
+        <span  ng-if="apkLanguage != 'english'">{{payment[language]}}</span>
+    </ion-nav-title>
+    <ion-content>
+        <div class="content-section">
+            <div class="list card" style="margin:0;">
+                <div class="item item-body allp" ng-repeat="doc in doctor">
+                    <p><strong> {{doc.user_lang[language]}}</strong><br/>
+                        <span ng-repeat="spec in doc.specializations">
+                            {{spec.specialization}},   
+                        </span>
+                    </p>
+                    <ul class="clist">
+                        <li>{{product[0].desc}}, {{product[0].mode}} </li>
+                        <li ng-repeat="pInc in  prod_inclusion track by $index">{{pInc.mode}}, {{pInc.desc}},
+                            <span ng-if="pInc.discount < 100">Discount : {{pInc.discount}} %</span>, {{pInc.validity_in_days}} Days</li>
+                    </ul>
+                    <p ng-if="mode == 3"> <strong>Address</strong> : {{product[0].prod_service.alias}} </p>
+                    <p ng-if="product[0].mode != 'Chat'"><strong>Appointment Details</strong> <br/> 
+                        <span ng-if="startSlot">
+                            <strong>Date : </strong> {{startSlot| dateFormat3}} <br/>
+                            <strong>Time : </strong> {{startSlot| time1}} To {{endSlot| time1}}<br/>
+                        </span>
+                        <span ng-if="!startSlot">
+                            <strong>Date : </strong> {{curTime| dateFormat3}} <br/>
+                            <strong>Time : </strong> {{IVstartSlot| time1}} To {{IVendSlot| time1}}<br/>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="ctab">
+                <my-tabs class="themetabs">
+                    <my-tab title="Pay Now" ng-if="mode == 1 || mode == 2">
+                        <div class="tabcontainer" style="margin-top:0;">
+                            <h4 class="txt-centre" style="margin-top:10px; margin-bottom:10px;">Price: INR {{product[0].interfacePrice|ceil}}</h4>
+                            <div class="row" ng-if="apply != 1">
+                                <div class="col col-75">
+                                    <input type="text" class="custominput" id='coupon' Placeholder="Enter Coupon Code" ng-model="ccode" />
+                                    <span id="coupon_error"></span>
+                                </div>
+                                <div class="col">
+                                    <button class="button button-small button-assertive csbtn" ng-click="applyCouponCode(ccode)">Apply</button>
+                                    <!-- 	<button class="button button-small button-assertive csbtn">Undo</button> -->
+                                </div>
+                            </div>
+                            <div class="fg txt-centre" ng-if="apply == 1">Applied Discount</div>
+                            <div class="pprice" ng-if="apply == 1">Final Price: INR {{product[0].interfacePrice - discountApplied|ceil}}</div>
+                            <div class="section-footer"  ng-if="apkLanguage == 'english'"> <!---ui-sref="app.success"-->
+                                <a ng-if="mode == 1 || mode == 2" ng-click="payNow(product[0].interfacePrice - discountApplied)" class="button button-full button-positive">Pay Now</a>                                
+                            </div>
+                            <div class="section-footer"  ng-if="apkLanguage != 'english'"> <!---ui-sref="app.success"-->
+                                <a ng-if="mode == 1 || mode == 2" ng-click="payNow(product[0].interfacePrice - discountApplied)" class="button button-full button-positive">{{payment[language]}}</a>                                
+                            </div>
+                            <p class="agreelink">
+                                By Clicking on the button above, you agree to the <span dynamic-anchor-fix><a href="https://hope.arth.tech/termsandconditions.pdf" target="_blank">terms & conditions</a></span> and have read the <span dynamic-anchor-fix><a href="https://hope.arth.tech/privacypolicy.pdf" target="_blank">privacy policy</a> </span> & <span dynamic-anchor-fix><a href="https://doctrs.in/CancellationPolicy.pdf" target="_blank">cancellation policy.</a></span>
+                            </p>
+                        </div>
+                    </my-tab>
+                    <my-tab title="Book Now" ng-if="mode == 3 || mode == 4">
+                        <div class="tabcontainer">
+                            <h4 class="txt-centre" style="margin-top:10px; margin-bottom:10px;">Price: INR {{product[0].interfacePrice|ceil}}</h4>
+                            <div class="row" ng-if="apply != 1">
+                                <div class="col col-75">
+                                    <input type="text" class="custominput" id='coupon' Placeholder="Enter Coupon Code" ng-model="ccode" />
+                                    <span id="coupon_error"></span>
+                                </div>
+                                <div class="col">
+                                    <button class="button button-small button-assertive csbtn" ng-click="applyCouponCode(ccode)">Apply</button>
+                                    <!-- 	<button class="button button-small button-assertive csbtn">Undo</button> -->
+                                </div>
+                            </div>
+                            <div class="fg txt-centre" ng-if="apply == 1">Applied Discount</div>
+                            <div class="pprice" ng-if="apply == 1">Final Price: INR {{product[0].interfacePrice - discountApplied|ceil}}</div>
+                            <!--                            <div class="row">
+                                                            <div class="col col-75">
+                                                                <input type="text" class="custominput" Placeholder="Enter Coupon Code"  ng-model="ccode" />
+                                                            </div>
+                                                            <div class="col">
+                                                                <button class="button button-small button-assertive csbtn " ng-click="applyCouponCode(ccode)">Apply</button>
+                                                            </div>
+                                                        </div>                            
+                                                        <p class="fg txt-centre">Applied Discount:20%</p>
+                                                        <h4 class="txt-centre">Final Price: INR {{product[0].price}}</h4>-->
+                            <br/>
+
+
+
+                            <div class="section-footer"> <!---ui-sref="app.success"-->
+                                <a ng-if="mode == 3 || mode == 4" ng-click="bookNow()" class="button button-full button-positive">Book Now</a>
+                            </div>
+                            <p class="agreelink">
+                                By Clicking on the button above, you agree to the <span dynamic-anchor-fix><a href="https://hope.arth.tech/termsandconditions.pdf" target="_blank">terms & conditions</a></span> and have read the <span dynamic-anchor-fix><a href="https://hope.arth.tech/privacypolicy.pdf" target="_blank">privacy policy</a> </span> & <span dynamic-anchor-fix><a href="https://doctrs.in/CancellationPolicy.pdf" target="_blank">cancellation policy.</a></span>
+                            </p>
+                        </div>
+                    </my-tab>
+                    <div ng-if="packages.length != 0">
+                        <my-tab title="I have Package">
+                            <div class="tabcontainer" >
+                                <div class="item item-body allp" ng-if="packages.length == 0">
+                                    <p>You have not subscribed to any packages!
+                                    </p>
+                                </div>
+                                <div class="item item-body allp" ng-if="packageId != 0">
+                                    <p>{{selPack.packages.name}}<br/>
+                                        Desc: {{selPack.packages.desc}}</p>
+                                </div>
+                                <button class="button button-full" ng-if="packages.length != 0" ng-click="modal.show()" > {{packages.length}} package{{packages.length>1? 's':''}} you have subscribed</button><br/>
+                                <div class="section-footer" ng-if="packageId != 0"> <!---ui-sref="app.success"-->
+                                    <a ng-click="bookWithPackage()" class="button button-full button-positive">Book Now</a>
+                                </div>
+                            </div>
+
+                        </my-tab> 
+                    </div>
+                </my-tabs>
+                </ion-tabs>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
+<script id="pkg-details" type="text/ng-template">
+    <ion-modal-view>
+    <ion-header-bar class="bar app-top-bar">
+    <h1 class="title">Package Description</h1>
+    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+    </ion-header-bar>
+    <ion-content>
+    <div class="cardcont txt-justify">
+    <div class="posts-list">
+    <div class="list card post-item" ng-repeat="pack in packages | orderBy:'-pack.valid'">
+    <a class="post-content item item-text-wrap p0">
+    <div class="item item-divider">{{pack.packages.name}}</div>
+    <div class="filelabel button button-positive" ng-click="validate(pack.packages.id, $index, pack.order.id)"> Select & Proceed </div>
+    <!---<div class="list">
+    <ion-radio ng-model="packId[pack.packages.id]" ng-value="{{pack.packages.id}}" ng-change="getIds('{{pack.packages.id}}')" value="Select">Select</ion-radio>
+    </div>--->
+    <div class="row">
+    <div class="col txt-center">{{pack.packages.desc}}</div>
+    </div>
+    </a>
+    </div>
+    </div> 
+    </div>
+    </ion-content>
+    </ion-modal-view>
+</script>
